@@ -1,20 +1,15 @@
 {
-  "name": "packagefile",
+  "name": "online",
   "version": "1.0.0",
-  "description": "first package file",
-  "main": "v9.js",
+  "description": "",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [
-    "first",
-    "package",
-    "file"
-  ],
-  "author": "Vishal",
+  "author": "vishal",
   "license": "ISC",
   "dependencies": {
-    "chalk": "^5.3.0",
+    "chalk": "^4.1.2",
     "colors": "^1.4.0",
     "simple-node-logger": "^21.8.12"
   }
