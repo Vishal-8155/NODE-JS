@@ -4,5 +4,5 @@ console.log(a+b);
 const vvv = require('./text');
 
 
-
+console.log(vvv.a);
 
