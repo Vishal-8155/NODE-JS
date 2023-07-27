@@ -12,13 +12,13 @@ const reqFilter = (req,res,next) => {
 
     }else if(req.query.age < 18){
 
-        res.send("You can not access this Page");
+        res.send("You are under aged");
 
     }else{
 
         next();
 
-    }
+    }   
 
 }
 
@@ -36,4 +36,4 @@ app.get('/user',(req,res) => {
 
 })
 
-app.listen(7000);
+app.listen(7000);       
