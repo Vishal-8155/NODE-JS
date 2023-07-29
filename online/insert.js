@@ -13,6 +13,8 @@ const insert = async () => {
 
     );
 
+    console.log(result);
+
     if (result.acknowledged) {
         console.log('data inserted');
     }
