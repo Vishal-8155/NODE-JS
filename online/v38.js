@@ -23,7 +23,7 @@ app.post('/',async(req,resp) => {
     let data = await dbConnect();
     let result = await data.insertOne(req.body);
     resp.send(result);
-
+    
 })
 
 app.put('/',async(req,resp) => {
@@ -39,12 +39,12 @@ app.put('/',async(req,resp) => {
 
 })
 
-app.put('/:id',async(req,resp) => {
+app.delete('/:id',async(req,resp) => {
 
     let data = await dbConnect();
     let result = await data.deleteOne({_id:new mongodb.ObjectId(req.params.id)});
     console.log(result);
-    resp.send('done');
+    resp.send(result);
 
 })
 
