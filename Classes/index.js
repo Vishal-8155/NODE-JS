@@ -6,7 +6,7 @@ const app = express();
 
 const publicpath = path.join(__dirname,'practice');
 
-app.get('',(req,res) => {
+app.get('/',(req,res) => {
 
     res.sendFile(`${publicpath}/index.html`);
 
