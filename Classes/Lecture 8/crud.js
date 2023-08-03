@@ -76,7 +76,7 @@ app.post("/save", bodyParse, (req, res) => {
     userData.forEach((i) => {
       if (i.id == id) {
         i.name = req.body.name;
-        i.mobile = req.body.number;
+        i.mobile = req.body.mobile;
         i.age = req.body.age;
       }
 
@@ -89,15 +89,17 @@ app.post("/save", bodyParse, (req, res) => {
       id: uid,
       name: req.body.name,
       age: req.body.age,
-      mobile: req.body.number
+      mobile: req.body.mobile
     }
 
     userData.push(udata);
 
   }
-
-  res.redirect("/saveGet");
-
+  edtData = '';
+  res.render("crud", {
+    data: userData,
+    userEdit: edtData,
+  });
 
 });
 
@@ -109,7 +111,7 @@ app.get('/edit/:id',bodyParse, (req, res) => {
     return i.id == id;
 
   })
- 
+
   res.render("crud", {
     data: userData,
     userEdit: edtData,

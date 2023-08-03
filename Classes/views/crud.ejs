@@ -23,18 +23,18 @@
                     Node JS</b>
 
                 <form action="/save" method="post" name="frm" id="frm">
-                    <input type="hidden" name="id" value="<%= userEdit.id %>">
+                    <input type="hidden" name="id" value="<%= (userEdit.id!='')?userEdit.id:'' %>">
 
                     Name :
-                    <input type="text" name="name" value="<%= userEdit.name %>" class="my-2"
+                    <input type="text" name="name" value="<%= (userEdit.id!='')?userEdit.name:'' %>" class="my-2"
                         style="width: 100%;"><br><br>
 
                     Mobile :
-                    <input type="number" name="number" value="<%= userEdit.mobile %>" class="my-2"
+                    <input type="number" name="mobile" value="<%= (userEdit.id!='')?userEdit.mobile:'' %>" class="my-2"
                         style="width: 100%;"><br><br>
 
                     Age :
-                    <input type="number" name="age" value="<%= userEdit.age %>" class="my-2"
+                    <input type="number" name="age" value="<%= (userEdit.id!='')?userEdit.age:'' %>" class="my-2"
                         style="width: 100%;"><br><br>
 
                     <input type="submit" value="Submit" class="btn btn-dark w-100" style="background-color: #3f454b;"

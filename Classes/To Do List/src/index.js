@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const path = require("path");
 const body = require("body-parser");
 
 const bodyParse = body.urlencoded({ extended: false });
@@ -7,11 +8,16 @@ const bodyParse = body.urlencoded({ extended: false });
 // extended true - object & json format
 app.set("view engine", "ejs");
 
+const mainPath = path.join(__dirname, "../public");
+app.use(express.static(mainPath));
+
+let edtData = "";
 let userData = [];
 
 app.get("/saveGet", (req, res) => {
   res.render("todolist", {
     data: userData,
+    userEdit: edtData,
   });
 });
 
@@ -33,17 +39,16 @@ app.post("/save", bodyParse, (req, res) => {
     let udata = {
       id: uid,
       name: req.body.name,
+      age: req.body.age,
+      mobile: req.body.mobile
     }
 
     userData.push(udata);
 
-  res.redirect("/saveGet");
-
+  res.redirect('/saveGet');
 
 });
 
 app.listen(7000, "127.0.0.1", () => {
   console.log("Successfully started server");
 });
-
-

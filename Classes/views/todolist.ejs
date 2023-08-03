@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+    <div class="container-fluid p-0 bg-secondary-subtle" style="height: 100vh;">
+
+        <div class="row  d-flex justify-content-center">
+
+            <div class="col-12 d-flex justify-content-center" style="margin-top: 100px;">
+                <b class="pb-4"
+                    style="width: 100%; display: flex; justify-content: center; align-items: center; font-size: 45px; text-decoration: underline;">TO
+                    DO LIST</b>
+            </div>
+
+            <form action="/save" class="col-5" method="post" name="frm" id="frm">
+                <input type="hidden" name="id" value="<%= (userEdit.id!='')?userEdit.id:'' %>">
+
+                <label for="" class="fw-bold fs-4 mb-2">Name :</label><br>
+
+                <input type="text" name="name" class="form-control w-100" placeholder="Enter Task" value="<%= (userEdit.id!='')?userEdit.name:'' %>" class="my-2"
+                    ><br>
+
+                <input type="submit" value="Add" class="btn btn-dark w-100" style="background-color: #3f454b;"
+                    style="margin-top: -20px; cursor: pointer;"><br><br>
+            </form>
+
+            <br>
+
+        </div>
+        <!-- Small boxes (Stat box) -->
+        <div class="row d-flex justify-content-center align-items-center">
+
+            <div class="col-5 bg-secondary-subtle p-4 border border-secondary rounded-bottom-5">
+
+                <table class="w-100" border="0" cellpadding="8">
+                    
+                    <% data.forEach((item)=> { %>
+                        <tr>
+                            <td class='border border-end text-dark'>
+                                <center class="fw-bold">
+                                    <%= item.id %>.
+                                </center>
+                            </td>
+
+                            <td class='border border-end text-dark'>
+                                <center>
+                                    <%= item.name %>
+                                </center>
+                            </td>
+
+                            <td>
+                                <center><a href="/del/<%= item.id %>" style="text-decoration: none;"> <button
+                                            type="button" class="btn btn-outline-danger">Delete</button></a></center>
+                            </td>
+                        </tr>
+                        <% }); %>
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+
+    <script>
+        window.addEventListener('load', function () {
+            document.getElementById('frm').reset();
+        });
+    </script>
+</body>
+
+</html>
