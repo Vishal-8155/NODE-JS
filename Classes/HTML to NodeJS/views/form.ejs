@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin LTE</title>
+
+    <!-- -------Main CSS------- -->
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <!-- ---------chat css ------------>
+
+    <link rel="stylesheet" href="../css/chat-style.css">
+
+    <!-- ------------------------jquery cdn-------------------- -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
+        integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+    <!-- --- swipper css --- -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+
+    <!-- ----------------Chat Script--------------- -->
+
+    <script src="../js/chatModule.js"></script>
+    <script src="../js/chat.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.5.2/velocity.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.5.2/velocity.ui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/WiFuchs/chatty@v1.0/chat-style.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/WiFuchs/chatty@v1.0/chatModule.js"></script>
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css">
+
+    <!-- ------------font awesome cdn------------- -->
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- -----------Bootstrap cdn------------ -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+
+    <!-- ------------Animation------------ -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"
+        integrity="sha512-Eak/29OTpb36LLo2r47IpVzPBLXnAMPAVypbSZiZ4Qkf8p/7S/XRG5xp7OKWPPYfJT6metI+IORkR5G8F900+g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+</head>
+
+<body>
+
+    <!-- --------------Main Container-------------- -->
+
+    <section class="container-fluid m-0 p-0">
+
+        <!-- ----Container-1 (Header Part)---- -->
+
+        <div class="container-fluid container-1">
+            <div class="container">
+
+                <!-- ---- Row-1---- -->
+
+                <div class="row align-items-center height">
+                    <div class="col-1" style="width: 40px;">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                            <i class="wow animate__zoomIn fa-solid fa-bars fs-4 text-secondary"></i>
+                        </button>
+
+                        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
+                            aria-labelledby="offcanvasExampleLabel" style="background-color: rgb(27, 27, 27);">
+
+                            <div class="offcanvas-header" style="background-color: rgb(48, 48, 48);">
+                                <h5 class="offcanvas-title text-white fs-3" id="offcanvasExampleLabel">Profile</h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                                    aria-label="Close"></button>
+                            </div>
+
+                            <div class="offcanvas-body">
+                                <div class="card card-primary border-0" style="background-color: rgb(27, 27, 27);">
+                                    <div class="card-body box-profile">
+                                        <div class="text-center">
+                                            <img class="profile-user-img img-fluid p-1 border border-5 border-secondarymg-circle rounded-circle"
+                                                src="Vishal3-mini.jpeg" alt="User profile picture"
+                                                style="height: 200px; width: 200px;">
+                                        </div>
+                                        <h3 class="profile-username text-center text-white mt-3">VISHAL CHAVDA</h3>
+                                        <p class=" text-center" style="color: rgb(149, 149, 149);">Full Stack Developer
+                                        </p>
+                                        <ul class="list-group list-group-flush mb-3">
+                                            <li class="list-group-item d-flex justify-content-between"
+                                                style="background-color: rgb(27, 27, 27);">
+                                                <div>
+                                                    <b class="text-white">Followers</b>
+                                                </div>
+
+                                                <div>
+                                                    <a class="float-right text-decoration-none">5 M</a>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between"
+                                                style="background-color: rgb(27, 27, 27);">
+                                                <div>
+                                                    <b class="text-white">Following</b>
+                                                </div>
+
+                                                <div>
+                                                    <a class="float-right text-decoration-none">543</a>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between"
+                                                style="background-color: rgb(27, 27, 27);">
+                                                <div>
+                                                    <b class="text-white">Friends</b>
+                                                </div>
+
+                                                <div>
+                                                    <a class="float-right text-decoration-none">33,678</a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <a href="#" class="btn btn-primary btn-block col-12"><b>Follow</b></a>
+                                    </div>
+
+                                    <div class="card card-primary"
+                                        style="background-color: rgb(27, 27, 27); border: none;">
+                                        <div class="card-header">
+                                            <h3 class="card-title text-white fs-2">About Me</h3>
+                                        </div>
+
+                                        <div class="card-body text-white">
+                                            <strong><i class="fas fa-book mr-1"></i> Education</strong>
+                                            <p>
+                                                Diploma in Computer Engineering from the University of R.C.Technical at
+                                                Gota, Ahmedabad.
+                                            </p>
+                                            <hr>
+                                            <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
+                                            <p>Gota, Ahmedabad</p>
+                                            <hr>
+                                            <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
+                                            <p>
+                                                <span class="tag tag-danger text-decoration-underline">Frontend &
+                                                    Backend Developer</span>
+                                                <span class="tag tag-success"> :- HTML,</span>
+                                                <span class="tag tag-success">CSS,</span>
+                                                <span class="tag tag-success">jQuery,</span>
+                                                <span class="tag tag-success">Bootstrap,</span>
+                                                <span class="tag tag-success">C Language,</span>
+                                                <span class="tag tag-success">C++,</span>
+                                                <span class="tag tag-info">Javascript,</span>
+                                                <span class="tag tag-warning">React Js,</span>
+                                                <span class="tag tag-primary">Node.js,</span>
+                                                <span class="tag tag-primary">MongoDb,</span>
+                                                <span class="tag tag-primary">express JS,</span>
+                                                <span class="tag tag-primary">Vue JS.</span>
+                                            </p>
+                                            <hr>
+                                            <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing
+                                                elit. Etiam fermentum enim neque.</p>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="p-3 mb-0">
+
+                                        <div class="fs-1 text-white mb-4">Gallery</div>
+
+                                        <div class="swiper mySwiper">
+                                            <div class="swiper-wrapper">
+
+                                                <div class="swiper-slide"><img src="Vishal-1.jpeg" alt=""
+                                                        style="height: 100%; width: 100%;"></div>
+
+                                                <div class="swiper-slide"><img src="Vishal2.jpeg" alt=""
+                                                        style="height: 100%; width: 100%;"></div>
+
+                                                <div class="swiper-slide"><img src="Vishal3.jpeg" alt=""
+                                                        style="height: 100%; width: 100%;"></div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-1 d-lg-none" style="width: 40px; z-index: 30;">
+                        <button class="navbar-toggler text-secondary fs-5" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvasExample3" aria-controls="offcanvasExample">
+                            <span class="wow animate__zoomIn d-flex pb-2" style="font-size: 16px;">pages&nbsp;<i
+                                    class="fa-solid fa-circle-chevron-down"
+                                    style="font-size: 10px; padding-top: 4.2px;"></i></span>
+                        </button>
+
+                        <div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasExample3"
+                            aria-labelledby="offcanvasExampleLabel"
+                            style="background-color: rgb(27, 27, 27); height: 285px;">
+
+                            <div class="offcanvas-header ps-4" style="background-color: rgb(48, 48, 48);">
+                                <h5 class="offcanvas-title text-white fs-3" id="offcanvasExampleLabel">Pages</h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                                    aria-label="Close"></button>
+                            </div>
+
+                            <div class="offcanvas-body p-0 pt-1">
+                                <ul class="list-group list-group-flush px-4">
+                                    <li class="list-group-item" style="background-color: rgb(27, 27, 27);">
+                                        <a class="nav-link text-white" aria-current="page" href="/home">Home</a>
+                                    </li>
+                                    <li class="list-group-item" style="background-color: rgb(27, 27, 27);">
+                                        <a class="nav-link text-white" aria-current="page"
+                                            href="/contact">Contacts</a>
+                                    </li>
+                                    <li class="list-group-item" style="background-color: rgb(27, 27, 27);">
+                                        <a class="nav-link text-white" aria-current="page" href="/form">Form</a>
+                                    </li>
+                                    <li class="list-group-item" style="background-color: rgb(27, 27, 27);">
+                                        <a class="nav-link text-white" aria-current="page" href="Notification.html">
+                                            Notification <i class="fa-solid fa-bell text-primary"
+                                                style="font-size: 13px;"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-group-item" style="background-color: rgb(27, 27, 27);">
+                                        <a class="nav-link text-white" aria-current="page" href="Chat.html">Chats <i
+                                                class="fa-solid fa-comments text-primary"
+                                                style="font-size: 13px;"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-8 col-sm-6 col-8 p-2">
+                        <nav class="navbar navbar-expand-lg d-flex justify-content-between">
+                            <ul class="navbar-nav mb-lg-0">
+                                <li class="nav-item  d-none d-lg-block">
+                                    <a class="wow animate__zoomIn nav-link text-secondary" aria-current="page"
+                                        href="/home">Home</a>
+                                </li>
+                                <li class="wow animate__zoomIn nav-item  d-none d-lg-block">
+                                    <a class="nav-link text-secondary" aria-current="page"
+                                        href="/contact">Contacts</a>
+                                </li>
+                                <li class="wow animate__zoomIn nav-item  d-none d-lg-block">
+                                    <a class="nav-link text-secondary" aria-current="page" href="/form">Form</a>
+                                </li>
+                            </ul>
+                            <form class="d-flex" style="height: 28px;" role="search">
+                                <input class="wow animate__zoomIn form-control me-2 border border-2" type="search"
+                                    placeholder="Search" aria-label="Search" style="width: 150px;">
+                                <button class="wow animate__zoomIn btn btn-outline-secondary pt-0" type="submit"
+                                    style="width: 25px; padding-left: 4.5px;"><i class="fa-solid fa-magnifying-glass"
+                                        style="font-size: 15px;"></i></button>
+                            </form>
+                        </nav>
+                    </div>
+                    <div class="col-1 d-flex justify-content-center ms-5 me-4 d-none d-lg-block" style="width: 23px;">
+                        <div class="row">
+                            <a type="button" class="wow animate__zoomIn btn p-0 position-relative"
+                            href="Notification.html"
+                                data-bs-toggle="popover" data-bs-placement="bottom" data-bs-title="Popover title"
+                                data-bs-content="New Notification" style="outline: none; border: none;">
+                                <i class="fa-solid fa-bell text-secondary"></i>
+                                <span class="position-absolute top-0 start-100 translate-middle badge bg-primary">
+                                    9
+                                    <span class="visually-hidden">unread messages</span>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-1 d-flex me-5  d-none d-lg-block" style="width: 23px;">
+                        <div class="row">
+                            <a type="button" class="wow animate__zoomIn btn p-0 position-relative"
+                            href="Chat.html"
+                                data-bs-toggle="popover" data-bs-placement="bottom" data-bs-title="Popover title"
+                                data-bs-content="New Messages" style="outline: none; border: none;">
+                                <i class="fa-solid fa-comments text-secondary"></i>
+                                <span class="position-absolute top-0 start-100 translate-middle badge bg-primary">
+                                    3
+                                    <span class="visually-hidden">unread messages</span>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-1 col-sm-4 col-lg-1 d-flex justify-content-end">
+                        <div class="row align-items-center">
+
+                            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                                <i class="wow animate__zoomIn fa-solid fa-table-cells-large fs-5 text-secondary"></i>
+                            </button>
+
+                            <div class="offcanvas offcanvas-end p-0" tabindex="-1" id="offcanvasRight"
+                                aria-labelledby="offcanvasRightLabel" style="background-color: rgb(27, 27, 27);">
+                                <div class="offcanvas-header" style="background-color: rgb(48, 48, 48);">
+                                    <h2 class="offcanvas-title text-white" id="offcanvasExampleLabel">Dark Mode</h2>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body">
+
+                                    <div>
+
+                                        <ul class="list-group">
+                                            <li class="list-group-item border border-dark border-2"
+                                                style="width: 21.5rem; background-color: rgb(56, 56, 56);">
+                                                <input class="form-check-input me-1 border border-dark border-2 fs-5"
+                                                    type="checkbox" value="" id="firstCheckbox1"
+                                                    style="cursor: pointer;">
+                                                <label class="form-check-label fs-5" for="firstCheckbox1"
+                                                    style="color: rgb(202, 202, 202);">Dark
+                                                    Mode</label>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- --------------Container-2 (Body Part)--------------- -->
+
+        <div class="container-fluid container-2">
+
+            <div class="container">
+
+                <!-- ---- Row-1 ---- -->
+
+                <div class="row p-2">
+
+                    <div class="wow animate__fadeInUp col-10 fs-2 section-header">
+                        Forms
+                    </div>
+
+                </div>
+
+                <!-- ---- Row-2 ---- -->
+
+                <div class="row pt-3">
+
+                    <div class="col-md-6">
+
+                        <div class="wow animate__fadeInUp card card-primary mb-4">
+                            <div class="card-header pt-3" style="background-color: #007bff;">
+                                <h3 class="card-title text-white">Quick Example</h3>
+                            </div>
+
+
+                            <form>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1" class="fw-bold">Email address</label>
+                                        <input type="email" class="form-control my-2" id="exampleInputEmail1"
+                                            placeholder="Enter email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1" class="fw-bold">Password</label>
+                                        <input type="password" class="form-control my-2" id="exampleInputPassword1"
+                                            placeholder="Password">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputFile" class="fw-bold">File input</label>
+                                        <div class="input-group my-2">
+                                            <input type="file" class="form-control" id="inputGroupFile01">
+                                            <label class="input-group-text" for="inputGroupFile01">Upload</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-check my-2">
+                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                    </div>
+                                </div>
+
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary my-2">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="wow animate__fadeInUp card card-info mb-4">
+                            <div class="card-header pt-3" style="background-color: #17a2b8;">
+                                <h3 class="card-title text-white">Input Addon</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">@</span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Username">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">.00</span>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">$</span>
+                                    </div>
+                                    <input type="text" class="form-control">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">.00</span>
+                                    </div>
+                                </div>
+                                <h4 class="my-3">With icons</h4>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text py-3"><i class="fas fa-envelope"></i></span>
+                                    </div>
+                                    <input type="email" class="form-control" placeholder="Email">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text py-3"><i class="fas fa-check"></i></span>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text py-3">
+                                            <i class="fas fa-dollar-sign"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text py-3"><i class="fas fa-ambulance"></i></div>
+                                    </div>
+                                </div>
+                                <h5 class="mt-4 mb-2">With checkbox and radio inputs</h5>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="input-group my-2">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text py-3">
+                                                    <input type="checkbox">
+                                                </span>
+                                            </div>
+                                            <input type="text" class="form-control">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="input-group my-2">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text py-3"><input type="radio"></span>
+                                            </div>
+                                            <input type="text" class="form-control">
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <h5 class="mt-4 mb-2">With buttons</h5>
+                                <p>Large: <code>.input-group.input-group-lg</code></p>
+                                <div class="input-group input-group-lg mb-3">
+                                    <div class="input-group-prepend">
+                                        <button type="button" class="btn btn-warning dropdown-toggle py-3"
+                                            data-toggle="dropdown">
+                                            Action
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li class="dropdown-item"><a href="#">Action</a></li>
+                                            <li class="dropdown-item"><a href="#">Another action</a></li>
+                                            <li class="dropdown-item"><a href="#">Something else here</a></li>
+                                            <li class="dropdown-divider"></li>
+                                            <li class="dropdown-item"><a href="#">Separated link</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <input type="text" class="form-control">
+                                </div>
+
+                                <p>Normal</p>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <button type="button" class="btn btn-danger">Action</button>
+                                    </div>
+
+                                    <input type="text" class="form-control">
+                                </div>
+
+                                <p>Small <code>.input-group.input-group-sm</code></p>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control">
+                                    <span class="input-group-append">
+                                        <button type="button" class="btn btn-flat text-white" style="background-color: #007bff;">Go!</button>
+                                    </span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="wow animate__fadeInUp card card-info mb-4">
+                            <div class="card-header pt-3" style="background-color: #007bff;">
+                                <h3 class="card-title text-white">Horizontal Form</h3>
+                            </div>
+
+
+                            <form class="form-horizontal">
+                                <div class="card-body">
+                                    <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-2 col-form-label my-2">Email</label>
+                                        <div class="col-sm-10">
+                                            <input type="email" class="form-control my-2" id="inputEmail3"
+                                                placeholder="Email">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputPassword3" class="col-sm-2 col-form-label my-2">Password</label>
+                                        <div class="col-sm-10">
+                                            <input type="password" class="form-control my-2" id="inputPassword3"
+                                                placeholder="Password">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="offset-sm-2 col-sm-10">
+                                            <div class="form-check my-2">
+                                                <input type="checkbox" class="form-check-input" id="exampleCheck2">
+                                                <label class="form-check-label" for="exampleCheck2">Remember me</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card-footer p-3 d-flex justify-content-between">
+                                    <button type="submit" class="btn text-white" style="background-color: #007bff;">Sign in</button>
+                                    <button type="submit" class="btn btn-default float-right border border-2">Cancel</button>
+                                </div>
+
+                            </form>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <div class="wow animate__fadeInUp card card-success mb-4">
+                            <div class="card-header pt-3" style="background-color: #28a745;">
+                                <h3 class="card-title text-white">Different Height</h3>
+                            </div>
+                            <div class="card-body">
+                                <input class="form-control form-control-lg" type="text" placeholder=".form-control-lg">
+                                <br>
+                                <input class="form-control" type="text" placeholder="Default input">
+                                <br>
+                                <input class="form-control form-control-sm" type="text" placeholder=".form-control-sm">
+                            </div>
+
+                        </div>
+
+                        <div class="wow animate__fadeInUp card card-danger mb-4">
+                            <div class="card-header pt-3" style="background-color: #dc3545;">
+                                <h3 class="card-title text-white">Different Width</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <input type="text" class="form-control" placeholder=".col-3">
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="text" class="form-control" placeholder=".col-4">
+                                    </div>
+                                    <div class="col-5">
+                                        <input type="text" class="form-control" placeholder=".col-5">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="wow animate__fadeInUp card card-warning mb-4">
+                            <div class="card-header pt-3" style="background-color: #ffc107;">
+                                <h3 class="card-title">General Elements</h3>
+                            </div>
+
+                            <div class="card-body">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+
+                                            <div class="form-group">
+                                                <label class="fw-bold my-2">Text</label>
+                                                <input type="text" class="form-control my-2" placeholder="Enter ...">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="fw-bold my-2">Text Disabled</label>
+                                                <input type="text" class="form-control my-2" placeholder="Enter ..."
+                                                    disabled="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+
+                                            <div class="form-group">
+                                                <label class="fw-bold my-2">Textarea</label>
+                                                <textarea class="form-control my-2" rows="3"
+                                                    placeholder="Enter ..."></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="fw-bold my-2">Textarea Disabled</label>
+                                                <textarea class="form-control my-2" rows="3" placeholder="Enter ..."
+                                                    disabled=""></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-form-label fw-bold my-2" for="inputSuccess"><i class="fas fa-check"></i>
+                                            Input with
+                                            success</label>
+                                        <input type="text" class="form-control is-valid my-2" id="inputSuccess"
+                                            placeholder="Enter ...">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label fw-bold my-2" for="inputWarning"><i class="far fa-bell"></i>
+                                            Input with
+                                            warning</label>
+                                        <input type="text" class="form-control is-warning border border-warning my-2" id="inputWarning"
+                                            placeholder="Enter ...">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label fw-bold my-2" for="inputError"><i
+                                                class="far fa-times-circle"></i> Input with
+                                            error</label>
+                                        <input type="text" class="form-control is-invalid my-2" id="inputError"
+                                            placeholder="Enter ...">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6 my-3">
+
+                                            <div class="form-group">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox">
+                                                    <label class="form-check-label">Checkbox</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" checked="">
+                                                    <label class="form-check-label">Checkbox checked</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" disabled="">
+                                                    <label class="form-check-label">Checkbox disabled</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 my-3">
+
+                                            <div class="form-group">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="radio1">
+                                                    <label class="form-check-label">Radio</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="radio1"
+                                                        checked="">
+                                                    <label class="form-check-label">Radio checked</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" disabled="">
+                                                    <label class="form-check-label">Radio disabled</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+
+                                            <div class="form-group">
+                                                <label class="fw-bold my-2">Select Multiple</label>
+                                                <select multiple="" class="form-control my-2">
+                                                    <option>option 1</option>
+                                                    <option>option 2</option>
+                                                    <option>option 3</option>
+                                                    <option>option 4</option>
+                                                    <option>option 5</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="fw-bold my-2">Select Multiple Disabled</label>
+                                                <select multiple="" class="form-control my-2" disabled="">
+                                                    <option>option 1</option>
+                                                    <option>option 2</option>
+                                                    <option>option 3</option>
+                                                    <option>option 4</option>
+                                                    <option>option 5</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Swiper JS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            effect: "cards",
+            grabCursor: true,
+        });
+    </script>
+
+    <!-- ---------Script---------- -->
+
+    <script>
+        $(window).ready(function () {
+
+            $('#firstCheckbox1').click(function () {
+                $('.container-2').toggleClass('background-black');
+                $('.container-1').toggleClass('background-black');
+                $('.section-header').toggleClass('font-white');
+            });
+
+        });
+    </script>
+
+    <!-- ---------------Animation Script----------------- -->
+
+    <script>
+        wow = new WOW({
+            boxClass: "wow", // default
+            animateClass: "animate__animated", // default
+            offset: 1, // default
+            mobile: true, // default
+            live: true, // default
+        });
+        wow.init();
+    </script>
+
+</body>
+
+</html>

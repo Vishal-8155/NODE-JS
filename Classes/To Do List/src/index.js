@@ -35,15 +35,15 @@ app.get("/del/:id", (req, res) => {
 
 app.post("/save", bodyParse, (req, res) => {
 
-    let uid = userData.length + 1;
-    let udata = {
-      id: uid,
-      name: req.body.name,
-      age: req.body.age,
-      mobile: req.body.mobile
-    }
+  let uid = userData.length + 1;
+  let udata = {
+    id: uid,
+    name: req.body.name,
+    age: req.body.age,
+    mobile: req.body.mobile
+  }
 
-    userData.push(udata);
+  userData.push(udata);
 
   res.redirect('/saveGet');
 
