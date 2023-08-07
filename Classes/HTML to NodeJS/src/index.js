@@ -22,12 +22,12 @@ app.get("/home", (req, res) => {
 });
 
 app.get("/contact", (req, res) => {
-    res.render("contact");
-  });
+  res.render("contact");
+});
 
 app.get("/form", (req, res) => {
-    res.render("form");
-  });
+  res.render("form");
+});
 
 app.listen(5000, "127.0.0.1", () => {
   console.log("Successfully started server");

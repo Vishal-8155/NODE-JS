@@ -18,6 +18,8 @@ app.get('/about',(req,res) => {
 
 })
 
+
+
 app.get('/contact',(req,res) => {
 
     res.sendFile(`${publicpath}/contact.html`);
@@ -30,4 +32,5 @@ app.get('*',(req,res) => {
 
 })
 
-app.listen(7030);
+app.listen(7030);  
+
