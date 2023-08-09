@@ -53,7 +53,7 @@ app.get('/products',async (req,res) => {
 
     let products = await Product.find();
 
-    if(products.length > 0) {
+    if(products.length > 0) {``
         res.send(products);
     }else{
         res.send({result:"No Product Found"});
