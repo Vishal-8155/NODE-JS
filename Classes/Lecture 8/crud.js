@@ -1,5 +1,9 @@
 const express = require("express");
 const app = express();
+const { MongoClient } = require("mongodb");
+const url = "mongodb://127.0.0.1:27017";
+const database = "classes";
+const client = new MongoClient(url);
 const path = require("path");
 const body = require("body-parser");
 
@@ -12,38 +16,7 @@ const mainPath = path.join(__dirname, "../public");
 app.use(express.static(mainPath));
 
 let edtData = "";
-let userData = [
-  {
-    id: 1,
-    name: "vishal",
-    age: 21,
-    mobile: 1234,
-  },
-  {
-    id: 2,
-    name: "azim",
-    age: 11,
-    mobile: 1234,
-  },
-  {
-    id: 3,
-    name: "kuntesh",
-    age: 30,
-    mobile: 1234,
-  },
-  {
-    id: 4,
-    name: "bharat",
-    age: 25,
-    mobile: 1234,
-  },
-  {
-    id: 5,
-    name: "parth",
-    age: 33,
-    mobile: 1234,
-  },
-];
+let userData = [];
 
 app.get("/saveGet", (req, res) => {
   res.render("crud", {
@@ -65,6 +38,24 @@ app.get("/del/:id", (req, res) => {
     i.id = j;
     j++;
   });
+
+  async function mongodeletedata() {
+
+    const result = await client.connect();
+    const db = result.db(database);
+    const collection = db.collection('users');
+    const response = await collection.deleteOne({id:req.params.id});
+
+    if (response.acknowledged) {
+      console.log('record deleted');
+    }else{
+      console.log('record not deleted');
+    }
+
+  }
+
+  mongodeletedata();
+
   res.redirect("/saveGet");
 });
 
@@ -94,16 +85,24 @@ app.post("/save", bodyParse, (req, res) => {
 
     userData.push(udata);
 
+    async function mongoinsertdata() {
+
+      const result = await client.connect();
+      const db = result.db(database);
+      const collection = db.collection('users');
+      await collection.insertOne(udata);
+
+    }
+
+    mongoinsertdata();
+
   }
   edtData = '';
-  res.render("crud", {
-    data: userData,
-    userEdit: edtData,
-  });
+  res.redirect('/saveGet')
 
 });
 
-app.get('/edit/:id',bodyParse, (req, res) => {
+app.get('/edit/:id', bodyParse, (req, res) => {
 
   id = req.params.id;
   edtData = userData.find((i) => {
