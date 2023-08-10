@@ -12,13 +12,25 @@ const bodyParse = body.urlencoded({ extended: false });
 // extended true - object & json format
 app.set("view engine", "ejs");
 
+let userData = [];
+
 const mainPath = path.join(__dirname, "../public");
 app.use(express.static(mainPath));
 
 let edtData = "";
-let userData = [];
 
 app.get("/saveGet", (req, res) => {
+
+  const mongouserdata = async () => {
+
+    let result = await fetch("http://127.0.0.1:7000/getusers");
+    result = await result.json();
+    userData = result;
+
+  }
+
+  mongouserdata();
+  
   res.render("crud", {
     data: userData,
     userEdit: edtData,
@@ -39,68 +51,37 @@ app.get("/del/:id", (req, res) => {
     j++;
   });
 
-  async function mongodeletedata() {
-
-    const result = await client.connect();
-    const db = result.db(database);
-    const collection = db.collection('users');
-    const response = await collection.deleteOne({id:req.params.id});
-
-    if (response.acknowledged) {
-      console.log('record deleted');
-    }else{
-      console.log('record not deleted');
-    }
-
-  }
-
-  mongodeletedata();
-
   res.redirect("/saveGet");
 });
 
 app.post("/save", bodyParse, (req, res) => {
 
-  id = req.body.id;
-  if (id != '') {
+  const getUsers = async () => {
 
-    userData.forEach((i) => {
-      if (i.id == id) {
-        i.name = req.body.name;
-        i.mobile = req.body.mobile;
-        i.age = req.body.age;
-      }
-
-    })
-
-  } else {
-
-    let uid = userData.length + 1;
-    let udata = {
-      id: uid,
-      name: req.body.name,
-      age: req.body.age,
-      mobile: req.body.mobile
-    }
-
-    userData.push(udata);
-
-    async function mongoinsertdata() {
-
-      const result = await client.connect();
-      const db = result.db(database);
-      const collection = db.collection('users');
-      await collection.insertOne(udata);
-
-    }
-
-    mongoinsertdata();
+    await fetch("http://127.0.0.1:7000/getusers");
 
   }
-  edtData = '';
-  res.redirect('/saveGet')
+
+  getUsers();
 
 });
+
+app.get('/getusers', async (req, res) => {
+
+  async function mongoinsertdata() {
+
+    const result = await client.connect();
+    const db = result.db(database);
+    const collection = db.collection('users');
+    let users = await collection.find();
+    console.log(users);
+    res.send(users);
+  
+  }
+  
+  mongoinsertdata();
+
+})
 
 app.get('/edit/:id', bodyParse, (req, res) => {
 
@@ -121,3 +102,32 @@ app.get('/edit/:id', bodyParse, (req, res) => {
 app.listen(7000, "127.0.0.1", () => {
   console.log("Successfully started server");
 });
+
+
+// id = req.body.id;
+  // if (id != '') {
+
+  //   userData.forEach((i) => {
+  //     if (i.id == id) {
+  //       i.name = req.body.name;
+  //       i.mobile = req.body.mobile;
+  //       i.age = req.body.age;
+  //     }
+
+  //   })
+
+  // } else {
+
+  //   let uid = userData.length + 1;
+  //   let udata = {
+  //     id: uid,
+  //     name: req.body.name,
+  //     age: req.body.age,
+  //     mobile: req.body.mobile
+  //   }
+
+  //   userData.push(udata);
+
+  // }
+  // edtData = '';
+  // res.redirect('/saveGet')
