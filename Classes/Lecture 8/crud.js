@@ -1,133 +1,184 @@
 const express = require("express");
 const app = express();
 const { MongoClient } = require("mongodb");
+const mongodb = require('mongodb');
 const url = "mongodb://127.0.0.1:27017";
 const database = "classes";
 const client = new MongoClient(url);
 const path = require("path");
+var fs = require('fs');
 const body = require("body-parser");
+const multer = require("multer");
 
 const bodyParse = body.urlencoded({ extended: false });
 // extended false - string & array
 // extended true - object & json format
 app.set("view engine", "ejs");
 
-let userData = [];
-
 const mainPath = path.join(__dirname, "../public");
 app.use(express.static(mainPath));
 
-let edtData = "";
+app.use(express.static(__dirname + "/uploads"));
+let image = '';
 
-app.get("/saveGet", (req, res) => {
+// let upload = multer({ dest: __dirname+"/uploads"})
 
-  const mongouserdata = async () => {
+const storage = multer.diskStorage({
 
-    let result = await fetch("http://127.0.0.1:7000/getusers");
-    result = await result.json();
-    userData = result;
+  destination: function (req, file, cb) {
 
-  }
+    cb(null, __dirname + "/uploads");
 
-  mongouserdata();
-  
-  res.render("crud", {
-    data: userData,
-    userEdit: edtData,
-  });
-});
+  },
+  filename: function (req, file, cb) {
 
-app.get("/user", (req, res) => {
-  res.sendFile(mainPath + "/" + "form.html");
-});
-
-app.get("/del/:id", (req, res) => {
-  let id = req.params.id;
-  id = id - 1;
-  userData.splice(id, 1);
-  let j = 1;
-  userData.forEach((i) => {
-    i.id = j;
-    j++;
-  });
-
-  res.redirect("/saveGet");
-});
-
-app.post("/save", bodyParse, (req, res) => {
-
-  const getUsers = async () => {
-
-    await fetch("http://127.0.0.1:7000/getusers");
+    image = Date.now() + file.originalname
+    return cb(null, image)
 
   }
 
-  getUsers();
-
 });
 
-app.get('/getusers', async (req, res) => {
+const upload = multer({ storage: storage });
 
-  async function mongoinsertdata() {
+async function main() {
+  try {
 
-    const result = await client.connect();
-    const db = result.db(database);
-    const collection = db.collection('users');
-    let users = await collection.find();
-    console.log(users);
-    res.send(users);
-  
+    let edtData = "";
+
+    app.get("/saveGet", async (req, res) => {
+
+      let result = await client.connect();
+      let db = result.db(database);
+      let collection = db.collection('users');
+      let response = await collection.find({}).toArray();
+
+      res.render("crud", {
+
+        data: response,
+        userEdit: edtData
+
+      });
+
+    });
+
+    app.get("/user", (req, res) => {
+      res.sendFile(mainPath + "/" + "form.html");
+    });
+
+    app.get("/del/:id", async (req, res) => {
+
+      let result = await client.connect();
+      let db = result.db(database);
+      let collection = db.collection('users');
+
+      await collection.deleteOne({ _id: new mongodb.ObjectId(req.params.id) }, (error, product) => {
+
+        if(error){
+          console.log(error);
+        }
+
+        fs.unlink(product.image,(error)=> {
+
+          if(error){
+            console.log(error);
+          }
+
+        });
+
+      });
+
+      res.redirect('/saveGet');
+
+
+    });
+
+    app.post("/save", upload.single('image'), async (req, res) => {
+
+      id = req.body.id;
+
+      if (id != '') {
+
+        let result = await client.connect();
+        let db = result.db(database);
+        let collection = db.collection('users');
+
+        await collection.updateOne(
+
+          { _id: new mongodb.ObjectId(id) },
+          {
+            $set:
+            {
+              name: req.body.name,
+              age: req.body.age,
+              mobile: req.body.mobile,
+              image: image
+            }
+          }
+        )
+
+        if (result.modifiedCount > 0) {
+          console.log('data updated');
+        }
+
+      } else {
+
+        let udata = {
+
+          name: req.body.name,
+          age: req.body.age,
+          mobile: req.body.mobile,
+          image: image
+
+        }
+
+
+        let result = await client.connect();
+        let db = result.db(database);
+        let collection = db.collection('users');
+
+        await collection.insertOne(udata);
+
+      }
+
+      edtData = "";
+      res.redirect('/saveGet');
+
+    });
+
+    app.get('/edit/:id', bodyParse, async (req, res) => {
+
+      let result = await client.connect();
+      let db = result.db(database);
+      let collection = db.collection('users');
+      let response = await collection.find({}).toArray();
+
+      id = req.params.id;
+
+      edtData = response.find((i) => {
+
+        return i._id == id;
+
+      })
+
+      res.render("crud", {
+        data: response,
+        userEdit: edtData,
+      });
+
+    })
+
   }
-  
-  mongoinsertdata();
+  catch (err) {
+    console.log(err);
+  }
+}
 
-})
+main();
 
-app.get('/edit/:id', bodyParse, (req, res) => {
-
-  id = req.params.id;
-  edtData = userData.find((i) => {
-
-    return i.id == id;
-
-  })
-
-  res.render("crud", {
-    data: userData,
-    userEdit: edtData,
-  });
-
-})
 
 app.listen(7000, "127.0.0.1", () => {
   console.log("Successfully started server");
 });
 
 
-// id = req.body.id;
-  // if (id != '') {
-
-  //   userData.forEach((i) => {
-  //     if (i.id == id) {
-  //       i.name = req.body.name;
-  //       i.mobile = req.body.mobile;
-  //       i.age = req.body.age;
-  //     }
-
-  //   })
-
-  // } else {
-
-  //   let uid = userData.length + 1;
-  //   let udata = {
-  //     id: uid,
-  //     name: req.body.name,
-  //     age: req.body.age,
-  //     mobile: req.body.mobile
-  //   }
-
-  //   userData.push(udata);
-
-  // }
-  // edtData = '';
-  // res.redirect('/saveGet')
