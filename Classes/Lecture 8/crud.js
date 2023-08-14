@@ -72,30 +72,29 @@ async function main() {
       let db = result.db(database);
       let collection = db.collection('users');
 
-      await collection.deleteOne({ _id: new mongodb.ObjectId(req.params.id) }, (error, product) => {
+      id = req.params.id;
 
-        if(error){
-          console.log(error);
-        }
+      let userdata = await collection.findOne({ _id: new mongodb.ObjectId(req.params.id) })
 
-        fs.unlink(product.image,(error)=> {
+      imgname = __dirname + "/uploads/" + userdata.image;
 
-          if(error){
-            console.log(error);
-          }
+      fs.unlink(imgname, () => {
 
-        });
+        console.log("Image deleted successfully");
 
-      });
+      })
+
+      await collection.deleteOne({ _id: new mongodb.ObjectId(req.params.id) });
 
       res.redirect('/saveGet');
-
 
     });
 
     app.post("/save", upload.single('image'), async (req, res) => {
 
       id = req.body.id;
+
+      old = (image != '') ? image : '';
 
       if (id != '') {
 
@@ -112,7 +111,7 @@ async function main() {
               name: req.body.name,
               age: req.body.age,
               mobile: req.body.mobile,
-              image: image
+              image: (image != undefined) ? image : old
             }
           }
         )
@@ -128,10 +127,9 @@ async function main() {
           name: req.body.name,
           age: req.body.age,
           mobile: req.body.mobile,
-          image: image
+          image: (image != undefined) ? image : old
 
         }
-
 
         let result = await client.connect();
         let db = result.db(database);
@@ -162,8 +160,10 @@ async function main() {
       })
 
       res.render("crud", {
+
         data: response,
-        userEdit: edtData,
+        userEdit: edtData
+
       });
 
     })
@@ -176,9 +176,11 @@ async function main() {
 
 main();
 
-
 app.listen(7000, "127.0.0.1", () => {
+
   console.log("Successfully started server");
+
 });
+
 
 
