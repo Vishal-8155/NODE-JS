@@ -102,6 +102,20 @@ async function main() {
         let db = result.db(database);
         let collection = db.collection('users');
 
+        if (image != '') {
+
+          let userdata = await collection.findOne({ _id: new mongodb.ObjectId(id) })
+
+          imgname = __dirname + "/uploads/" + userdata.image;
+
+          fs.unlink(imgname, () => {
+
+            console.log("Old Image deleted successfully");
+
+          })
+
+        }
+
         await collection.updateOne(
 
           { _id: new mongodb.ObjectId(id) },
@@ -145,7 +159,6 @@ async function main() {
     });
 
     app.get('/edit/:id', bodyParse, async (req, res) => {
-
       let result = await client.connect();
       let db = result.db(database);
       let collection = db.collection('users');
@@ -167,6 +180,8 @@ async function main() {
       });
 
     })
+
+
 
   }
   catch (err) {
