@@ -26,15 +26,15 @@
                     <input type="hidden" name="id" value="<%= (userEdit._id!='')?userEdit._id:'' %>">
 
                     Name :
-                    <input type="text" name="name" value="<%= (userEdit._id!='')?userEdit.name:'' %>" class="my-2"
+                    <input type="text" name="name" placeholder="Enter Name (require)" value="<%= (userEdit._id!='')?userEdit.name:'' %>" class="my-2"
                         style="width: 100%;"><br><br>
 
                     Mobile :
-                    <input type="number" name="mobile" value="<%= (userEdit._id!='')?userEdit.mobile:'' %>" class="my-2"
+                    <input type="number" name="mobile" placeholder="Enter Mobile Number" value="<%= (userEdit._id!='')?userEdit.mobile:'' %>" class="my-2"
                         style="width: 100%;"><br><br>
 
                     Age :
-                    <input type="number" name="age"  value="<%= (userEdit._id!='')?userEdit.age:'' %>" class="my-2"
+                    <input type="number" name="age" placeholder="Enter Age"  value="<%= (userEdit._id!='')?userEdit.age:'' %>" class="my-2"
                         style="width: 100%;"><br><br>
 
                     Image :

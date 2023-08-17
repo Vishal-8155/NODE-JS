@@ -94,6 +94,8 @@ async function main() {
 
       id = req.body.id;
 
+
+
       if (id != '') {
 
         let result = await client.connect();
@@ -134,24 +136,26 @@ async function main() {
         }
 
       } else {
+           if(req.body.name != ''){
+          let udata = {
 
-        let udata = {
+            name: req.body.name,
+            age: req.body.age,
+            mobile: req.body.mobile,
+            image: image
 
-          name: req.body.name,
-          age: req.body.age,
-          mobile: req.body.mobile,
-          image: image
+          }
+
+          let result = await client.connect();
+          let db = result.db(database);
+          let collection = db.collection('users');
+
+          await collection.insertOne(udata);
         }
-
-        let result = await client.connect();
-        let db = result.db(database);
-        let collection = db.collection('users');
-
-        await collection.insertOne(udata);
-
       }
 
       edtData = "";
+      image = '';
       res.redirect('/saveGet');
 
     });
