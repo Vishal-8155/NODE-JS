@@ -34,11 +34,11 @@
                         style="width: 100%;"><br><br>
 
                     Age :
-                    <input type="number" name="age" class="my-2"
+                    <input type="number" name="age"  value="<%= (userEdit._id!='')?userEdit.age:'' %>" class="my-2"
                         style="width: 100%;"><br><br>
 
                     Image :
-                    <input type="file" name="image" value="<%= (userEdit._id!='')? userEdit.image:'' %>" class="my-2"><br><br>
+                    <input type="file" name="image" class="my-2"><br><br>
 
                     <input type="submit" value="Submit" class="btn btn-dark w-100" style="background-color: #3f454b;"
                         style="margin-top: -20px; cursor: pointer;"><br><br>

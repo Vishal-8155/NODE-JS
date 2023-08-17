@@ -74,7 +74,7 @@ async function main() {
 
       id = req.params.id;
 
-      let userdata = await collection.findOne({ _id: new mongodb.ObjectId(req.params.id) })
+      let userdata = await collection.findOne({ _id: new mongodb.ObjectId(id) })
 
       imgname = __dirname + "/uploads/" + userdata.image;
 
@@ -84,7 +84,7 @@ async function main() {
 
       })
 
-      await collection.deleteOne({ _id: new mongodb.ObjectId(req.params.id) });
+      await collection.deleteOne({ _id: new mongodb.ObjectId(id) });
 
       res.redirect('/saveGet');
 
@@ -94,17 +94,16 @@ async function main() {
 
       id = req.body.id;
 
-      old = (image != '') ? image : '';
-
       if (id != '') {
 
         let result = await client.connect();
         let db = result.db(database);
         let collection = db.collection('users');
+        let userdata = await collection.findOne({ _id: new mongodb.ObjectId(id) })
 
-        if (image != '') {
+        let old = (userdata.image != '') ? userdata.image : '';
 
-          let userdata = await collection.findOne({ _id: new mongodb.ObjectId(id) })
+        if (req.file && image != '') {
 
           imgname = __dirname + "/uploads/" + userdata.image;
 
@@ -125,7 +124,7 @@ async function main() {
               name: req.body.name,
               age: req.body.age,
               mobile: req.body.mobile,
-              image: (image != undefined) ? image : old
+              image: (req.file && image != '') ? image : old
             }
           }
         )
@@ -141,8 +140,7 @@ async function main() {
           name: req.body.name,
           age: req.body.age,
           mobile: req.body.mobile,
-          image: (image != undefined) ? image : old
-
+          image: image
         }
 
         let result = await client.connect();
@@ -180,8 +178,6 @@ async function main() {
       });
 
     })
-
-
 
   }
   catch (err) {
