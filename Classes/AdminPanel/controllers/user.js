@@ -17,6 +17,7 @@ const main = (req, res) => {
 
 const formdata = (req, res) => {
 
+    rs(req,res);
     res.render('form');
 
 }
@@ -59,7 +60,7 @@ const form = async (req, res) => {
             password: req.body.password
 
         })
-
+                    
         await data.save();
         res.render('login');
 
