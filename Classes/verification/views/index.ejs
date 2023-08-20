@@ -1,0 +1,61 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Verification</title>
+    <style>
+        body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        }
+        .container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        }
+        h1 {
+        margin-top: 0;
+        }
+        input {
+        padding: 10px;
+        margin: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 100%;
+        max-width: 300px;
+        }
+        button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        }
+    </style>
+    </head>
+    <body>
+    <div class="container">
+        <h1>OTP Verification</h1>
+        <form id="otpForm" action="/send-otp" method="post">
+        <input type="email" name="email" id="email" placeholder="Enter your email">
+        <input type="submit" id="sendOTP" value="send OTP" style="background-color: #007bff;color: white;">
+        <input type="text" id="enteredOTP" placeholder="Enter OTP">
+        <button type="button" id="verifyOTP">Verify OTP</button>
+        </form>
+        <p id="status"></p>
+    </div>
+
+    <script>
+
+    </script>
+    </body>
+    </html>

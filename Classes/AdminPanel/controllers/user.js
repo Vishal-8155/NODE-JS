@@ -74,7 +74,7 @@ const form = async (req, res) => {
 
     const checkuser = await model.findOne({ email: req.body.email });
 
-    if (req.body.email  && req.body.password  && req.body.name){
+    if (req.body.email  && req.body.password  && req.body.name && req.body.number){
 
         if (checkuser) {
 
@@ -88,6 +88,7 @@ const form = async (req, res) => {
 
                 id: 1,
                 name: req.body.name,
+                number: req.body.number,
                 email: req.body.email,
                 password: req.body.password
 
