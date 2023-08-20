@@ -49,20 +49,29 @@
             <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
                 <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
 
-                    <form action="/admin/checklogin" method="post" name="frm">
+                    <form action="/admin/otp" method="post" name="frm">
                         <div class="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
+                            <div class="d-flex align-items-start justify-content-start mb-3">
+                                <a href="/admin" class="fs-5 fw-bold"><i class="bi bi-caret-left-fill"></i>Back</a>
+                            </div>
                             <div class="d-flex align-items-center justify-content-between mb-3">
                                 <a href="#" class="">
                                     <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i>AdminPanel</h3>
                                 </a>
-                                <h3></h3>
+                                <h3>Email</h3>
                             </div>
+                            <% if(message3){ %>
+                                <p class="w-100 rounded p-2 mb-3 btn-primary text-white" role="alert">
+                                    <%= message3 %>
+                                </p>
+                            <% } %>
                                     <div class="form-floating mb-3">
-                                        <input type="email" name="email" class="form-control" id="floatingInput"
+                                        <input type="text" name="Contact" class="form-control" id="floatingInput"
                                             placeholder="name@example.com">
-                                        <label for="floatingInput">Email address</label>
+                                        <label for="floatingInput">Enter Email or Mobile Number</label>
                                     </div>
                                     <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Next</button>
+                                    
                         </div>
                     </form>
                 </div>

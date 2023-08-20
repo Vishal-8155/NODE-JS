@@ -15,7 +15,7 @@ const defaultClient = sendinBlue.ApiClient.instance;
 
 // Configure API key authorization
 const apiKey = defaultClient.authentications['api-key'];
-apiKey.apiKey = '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';
+apiKey.apiKey = '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';
 
 // Create an instance of the TransactionalEmailsApi class
 const apiInstance = new sendinBlue.TransactionalEmailsApi();
@@ -27,7 +27,7 @@ const generateOTP = () => {
 
 app.get('/', async (req, res) => {
 
-    res.render('index');
+    res.render('email');
 
 })
 

@@ -3,7 +3,7 @@
     <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OTP Verification</title>
+    <title>Email OTP Verification</title>
     <style>
         body {
         font-family: Arial, sans-serif;
@@ -46,10 +46,10 @@
     <div class="container">
         <h1>OTP Verification</h1>
         <form id="otpForm" action="/send-otp" method="post">
-        <input type="email" name="email" id="email" placeholder="Enter your email">
+        <input type="email" name="email" id="email" placeholder="Enter your Email">
         <input type="submit" id="sendOTP" value="send OTP" style="background-color: #007bff;color: white;">
         <input type="text" id="enteredOTP" placeholder="Enter OTP">
-        <button type="button" id="verifyOTP">Verify OTP</button>
+        <button type="button">Verify OTP</button>
         </form>
         <p id="status"></p>
     </div>

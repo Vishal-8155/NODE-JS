@@ -18,7 +18,7 @@ const user = new mongoose.Schema({
           unique: false
     },
     number: {
-        type: Number,
+        type: String,
          required: true,
           unique: true
     },
