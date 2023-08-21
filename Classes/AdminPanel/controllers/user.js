@@ -1,9 +1,18 @@
 const model = require('../models/mongoosedb');
 const sendinBlue = require('sib-api-v3-sdk');
 const express = require('express');
-const accountSid = 'AC3ad31efc36b3f7af716c91364a43b65a';
-const authToken = '35f473170dc518c6c44fb0249e962f11';
-const client = require('twilio')(accountSid, authToken);
+// const accountSid = 'SKaa1cfe2abf0641dfb98da54700c38eae';
+// const authToken = 'Gvxu9K5YdAQVWqJcju8ihi06TyD8cci0';
+// const client = require('twilio')(accountSid, authToken);
+
+const accountSid = 'AC3ad31efc36b3f7af716c91364a43b65a'; // Replace with your Twilio Account SID
+const apiKeySid = 'SKaa1cfe2abf0641dfb98da54700c38eae';   // Replace with your Twilio API Key SID
+const apiKeySecret = 'Gvxu9K5YdAQVWqJcju8ihi06TyD8cci0'; // Replace with your Twilio API Key Secret
+
+const client = require('twilio')(apiKeySid, apiKeySecret, { accountSid: accountSid });
+
+// Rest of your code
+
 const app = express();
 // const bodyParser = require('body-parser');
 app.use(express.json());
@@ -235,7 +244,7 @@ const otp = async (req, res) => {
                 .create({
                     body: "VISHAL ADMINPANEL,Your OTP is : " + phoneotp,
                     from: '+17622383110',
-                    to: '+918155037781'
+                    to: `+91${mnum}`
                 })
                 .then(message => {
                     console.log(message.sid);

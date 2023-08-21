@@ -1,17 +1,19 @@
-const accountSid = 'AC3ad31efc36b3f7af716c91364a43b65a';
-const authToken = '35f473170dc518c6c44fb0249e962f11';
-const client = require('twilio')(accountSid, authToken);
+const SibApiV3Sdk = require('sib-api-v3-sdk');
+const defaultClient = SibApiV3Sdk.ApiClient.instance;
 
-// Generate a random OTP
-const generateOTP = () => {
-    return Math.floor(1000 + Math.random() * 9000).toString();
-};
+let apiKey = defaultClient.authentications['api-key'];
+apiKey.apiKey = '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';
 
-client.messages
-    .create({
-        body: "VISHAL ADMINPANEL,Your OTP is : "+generateOTP(),
-        from: '+17622383110',
-        to: '+918155037781'
-    })
-    .then(message => console.log(message.sid))
-    
+let apiInstance = new SibApiV3Sdk.SMSCampaignsApi();
+
+let campaignId = 1;
+
+let phoneNumber = new SibApiV3Sdk.SendTestSms();
+
+phoneNumber.phoneNumber = '+918155037781'; // Replace with the recipient's valid phone number
+
+apiInstance.sendTestSms(campaignId, phoneNumber).then(function() {
+    console.log('API called successfully.');
+}).catch(function(error) {
+    console.error('Error sending test SMS:', error.response ? error.response.body : error.message);
+});
