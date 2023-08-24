@@ -1,6 +1,8 @@
 const model = require('../models/mongoosedb');
 const sendinBlue = require('sib-api-v3-sdk');
 const express = require('express');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 // const accountSid = 'SKaa1cfe2abf0641dfb98da54700c38eae';
 // const authToken = 'Gvxu9K5YdAQVWqJcju8ihi06TyD8cci0';
 // const client = require('twilio')(accountSid, authToken);
@@ -274,19 +276,22 @@ const otp = async (req, res) => {
 
 const checklogin = async (req, res) => {
 
-    let data = await model.findOne({ email: req.body.email, password: req.body.password });
+
+    let data = await model.findOne({ email: req.body.email });
 
     if (req.body.email != '' && req.body.password != '') {
 
         if (data) {
 
-            res.cookie("UserName", data.name);
-            res.redirect('/admin/home');
+            const isPasswordValid = await bcrypt.compare(req.body.password, data.password);
 
-        } else {
-
-            req.flash('danger', 'Email and Password is Incorrect!');
-            res.render('login', { message: req.flash('danger') });
+            if (!isPasswordValid) {
+                await req.flash('danger', 'Email and Password is Incorrect!');
+                await res.render('login', { message: req.flash('danger') });
+            } else {
+                await res.cookie("UserName", data.name);
+                await res.redirect('/admin/home');
+            }
 
         }
 
@@ -301,9 +306,11 @@ const checklogin = async (req, res) => {
 
 const form = async (req, res) => {
 
-    const checkuser = await model.findOne({ email: req.body.email });
+    const { name, password, email, number } = req.body;
 
-    if (req.body.email && req.body.password && req.body.name && req.body.number) {
+    const checkuser = await model.findOne({ email });
+
+    if (email && password && name && number) {
 
         if (checkuser) {
 
@@ -313,13 +320,14 @@ const form = async (req, res) => {
 
         } else {
 
+            const crypted = await bcrypt.hash(password, saltRounds);
             let data = new model({
 
                 id: 1,
-                name: req.body.name,
-                number: req.body.number,
-                email: req.body.email,
-                password: req.body.password
+                name: name,
+                number: number,
+                email: email,
+                password: crypted
 
             })
 

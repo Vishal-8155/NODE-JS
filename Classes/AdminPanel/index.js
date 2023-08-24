@@ -5,13 +5,13 @@ const flash = require('connect-flash');
 const cookie = require('cookie-parser');
 app.use(cookie());
 
-app.use(session ({
+app.use(session({
 
     secret: 'flashblog',
     saveUninitialized: true,
-    resave:true
+    resave: true
 
-})) 
+}))
 
 app.use(flash());
 
@@ -19,10 +19,13 @@ app.set('view engine', 'ejs');
 
 app.use(express.static(__dirname));
 
- const routes = require('./routes/route');
- app.use(routes);
+const routes = require('./routes/route');
+app.use(routes);
 
-app.listen(5000,()=>{
+app.listen(5000, () => {
     console.log('listening on port 5000');
 })
+
+
+
 

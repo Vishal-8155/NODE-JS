@@ -9,16 +9,16 @@ const bs = body.urlencoded({ extended: true });
 let imgname = '';
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-       return cb(null, './uploads/')
+        return cb(null, './uploads/')
     },
     filename: function (req, file, cb) {
-       imgname = Date.now() + file.originalname;
-       return cb(null, imgname);
+        imgname = Date.now() + file.originalname;
+        return cb(null, imgname);
     }
- });
- const upload = multer({ storage: storage });
+});
+const upload = multer({ storage: storage });
 console.log(imgname);
-const { data,deldata, aditdata } = require("../controllers/controller");
+const { data, deldata, aditdata } = require("../controllers/controller");
 routes.get('/crud', data);
 routes.get('/del/:id', deldata);
 routes.get('/edit/:id', aditdata);
@@ -41,8 +41,7 @@ routes.post('/savedata', upload.single('image'), async (req, res) => {
             });
         }
 
-
-        await model.findOneAndUpdate({_id:id} ,
+        await model.findOneAndUpdate({ _id: id },
             {
                 $set: {
                     id: (user.length) + 1,
@@ -64,7 +63,7 @@ routes.post('/savedata', upload.single('image'), async (req, res) => {
                 pimage: imgname
             })
 
-           let b= await data.save();
+            let b = await data.save();
         }
 
     }
@@ -73,6 +72,7 @@ routes.post('/savedata', upload.single('image'), async (req, res) => {
     res.redirect('/crud')
 
 });
+
 
 
 module.exports = routes;

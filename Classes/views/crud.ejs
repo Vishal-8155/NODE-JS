@@ -26,16 +26,16 @@
                     <input type="hidden" name="id" value="<%= (userEdit._id!='')?userEdit._id:'' %>">
 
                     Name :
-                    <input type="text" name="name" placeholder="Enter Name (require)" value="<%= (userEdit._id!='')?userEdit.name:'' %>" class="my-2"
-                        style="width: 100%;"><br><br>
+                    <input type="text" name="name" placeholder="Enter Name (require)"
+                        value="<%= (userEdit._id!='')?userEdit.name:'' %>" class="my-2" style="width: 100%;"><br><br>
 
                     Mobile :
-                    <input type="number" name="mobile" placeholder="Enter Mobile Number" value="<%= (userEdit._id!='')?userEdit.mobile:'' %>" class="my-2"
-                        style="width: 100%;"><br><br>
+                    <input type="number" name="mobile" placeholder="Enter Mobile Number"
+                        value="<%= (userEdit._id!='')?userEdit.mobile:'' %>" class="my-2" style="width: 100%;"><br><br>
 
                     Age :
-                    <input type="number" name="age" placeholder="Enter Age"  value="<%= (userEdit._id!='')?userEdit.age:'' %>" class="my-2"
-                        style="width: 100%;"><br><br>
+                    <input type="number" name="age" placeholder="Enter Age"
+                        value="<%= (userEdit._id!='')?userEdit.age:'' %>" class="my-2" style="width: 100%;"><br><br>
 
                     Image :
                     <input type="file" name="image" class="my-2"><br><br>
@@ -105,13 +105,16 @@
                             </td>
 
                             <td>
-                                <center> <a href="/edit/<%= item._id %>"
-                                        style="text-decoration: none; color:red"><button type="button"
-                                            class="btn btn-outline-success">Edit</button></a></center>
+                                <center>
+                                    <a href="/edit/<%= item._id %>" style="text-decoration: none; color:red"><button
+                                            type="button" class="btn btn-outline-success">Edit</button></a>
+                                </center>
                             </td>
                             <td>
-                                <center><a href="/del/<%= item._id %>" style="text-decoration: none;"> <button
-                                            type="button" class="btn btn-outline-danger">Delete</button></a></center>
+                                <center>
+                                    <a href="/del/<%= item._id %>" style="text-decoration: none;"> <button type="button"
+                                            class="btn btn-outline-danger">Delete</button></a>
+                                </center>
                             </td>
                         </tr>
                         <% }); %>
