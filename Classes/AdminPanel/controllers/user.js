@@ -1,6 +1,7 @@
 const model = require('../models/mongoosedb');
 const sendinBlue = require('sib-api-v3-sdk');
 const express = require('express');
+const nodemailer = require('nodemailer')
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 // const accountSid = 'SKaa1cfe2abf0641dfb98da54700c38eae';
@@ -29,6 +30,7 @@ apiKey.apiKey = 'xkeysib-ec9437f34b5450144fc8eae366c6ccc8b466cea5779c78e2124fe03
 // Create an instance of the TransactionalEmailsApi class
 const apiInstance = new sendinBlue.TransactionalEmailsApi();
 
+
 // Generate a random OTP
 const generateOTP = () => {
     return Math.floor(1000 + Math.random() * 9000).toString();
@@ -39,6 +41,16 @@ const rs = (req, res) => {
         return res.redirect('/admin');
     }
 }
+
+const transporter = nodemailer.createTransport({
+    port: 465,               // true for 465, false for other ports
+    host: "smtp.gmail.com",
+    auth: {
+        user: 'vishalchavda7781@gmail.com',
+        pass: 'vxfxffkwweharzpo',
+    },
+    secure: true,
+});
 
 const main = (req, res) => {
 
@@ -136,6 +148,7 @@ const savepass = async (req, res) => {
                 res.redirect('/admin');
 
             }
+
         } else {
 
             req.flash('success', 'Please Enter Same Password!');
@@ -235,7 +248,6 @@ const otp = async (req, res) => {
                     res.status(500).json({ error: 'Error sending email' });
                 });
 
-
         } else if (phone) {
 
             const mnum = req.body.Contact;
@@ -263,6 +275,7 @@ const otp = async (req, res) => {
             res.render('forgetpass', { message3: req.flash('warning') });
 
         }
+
     } else {
 
         req.flash('warning', 'Please Enter Contact!');
@@ -270,12 +283,9 @@ const otp = async (req, res) => {
 
     }
 
-
-
 }
 
 const checklogin = async (req, res) => {
-
 
     let data = await model.findOne({ email: req.body.email });
 
@@ -286,11 +296,12 @@ const checklogin = async (req, res) => {
             const isPasswordValid = await bcrypt.compare(req.body.password, data.password);
 
             if (!isPasswordValid) {
-                await req.flash('danger', 'Email and Password is Incorrect!');
-                await res.render('login', { message: req.flash('danger') });
+                req.flash('danger', 'Email and Password is Incorrect!');
+                res.render('login', { message: req.flash('danger') });
             } else {
-                await res.cookie("UserName", data.name);
-                await res.redirect('/admin/home');
+                console.log(data.name)
+                res.cookie("UserName", data.name);
+                res.render('index', { message: '', username: data.name });
             }
 
         }
@@ -331,10 +342,22 @@ const form = async (req, res) => {
 
             })
 
+            const mailInfo = {
+
+                from: "vishalchavda7781@gmail.com",
+                to: email,
+                subject: "Vishal Chavda Admin Panel",
+                text: "Registration",
+                html: "<p>You are successfully registered </p>"
+
+            }
+            await transporter.sendMail(mailInfo)
+
             await data.save();
             res.redirect('/admin');
 
         }
+
     } else {
         req.flash('info', 'Please Enter All the Fields!');
         res.render('signup', { message2: req.flash('info') });
