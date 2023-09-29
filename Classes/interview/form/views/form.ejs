@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>form</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <link rel="stylesheet" href="../css/form.css">
+
+</head>
+
+<body>
+
+    <form action="/validate" method="post">
+
+        <div class="mb-3">
+
+            <label for="exampleInputEmail1" class="form-label">RelationShip : </label>
+            <select name="relationship" class="form-control">
+                <option value="">-- Select RelationShip --</option>
+                <option value="Mother">Mother</option>
+                <option value="Father">Father</option>
+                <option value="Brother">Brother</option>
+                <option value="Sister">Sister</option>
+            </select> <br><br>
+
+        </div>
+
+        <div>
+
+            <label for="floatingText">Name : </label>
+            <input type="text" name="name" class="form-control" id="floatingText" placeholder="Name" value="<%= (editdata)? editdata.name: '' %>" required> <br> <br>
+
+        </div>
+
+        <div>
+
+            <label for="floatingText">Date : </label>
+            <input type="date" name="date" class="form-control" id="floatingText" placeholder="Date" value="<%= (editdata)? editdata.date: '' %>" required> <br> <br>
+
+        </div>
+
+        <div>
+
+            <label for="floatingText">Address : </label>
+            <input type="Text" name="address" style="width: 400px; height: 50px;" class="form-control adress" id="floatingText" placeholder="Address" value="<%= (editdata)? editdata.address: '' %>"
+                required> <br><br>
+
+        </div>
+
+        <div>
+
+            <label for="floatingText">Pincode : </label>
+            <input type="number" name="pincode" class="form-control" style="width: 100px;" id="floatingText"
+                placeholder="Pincode"> <br><br>
+
+        </div>
+
+        <div>
+
+            <label for="floatingText">City : </label>
+            <input type="Text" name="city" class="form-control" id="floatingText" placeholder="City" value="<%= (editdata)? editdata.city: '' %>" required> <br> <br>
+
+        </div>
+
+        <div>
+
+            <label for="floatingText">State : </label>
+            <input type="Text" name="state" class="form-control" id="floatingText" placeholder="State" value="<%= (editdata)? editdata.state: '' %>" required> <br>
+            <br>
+
+        </div>
+
+        <div>
+
+            <label for="floatingText">Country : </label>
+            <input type="Text" name="country" class="form-control" id="floatingText" placeholder="Country" value="<%= (editdata)? editdata.country: '' %>" required>
+            <br> <br>
+
+        </div>
+
+        <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Submit</button>
+
+    </form> <br>
+
+    <h1>User Table</h1>
+
+    <table class="table" border="2">
+        <thead>
+            <tr>
+                <!-- <th scope="col">#</th> -->
+                <th scope="col">RelationShip</th>
+                <th scope="col">Name</th>
+                <th scope="col">Date of Birth</th>
+                <th scope="col">Address</th>
+                <th scope="col">Pincode</th>
+                <th scope="col">City</th>
+                <th scope="col">State</th>
+                <th scope="col">Country</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% if(getAlldata) { %>
+                <% getAlldata.forEach((item, index)=>{ %>
+                    <tr>
+                        <td><%= item.id %></td>
+                        <td>
+                            <%= item.relationship%>
+                        </td>
+                        <td>
+                            <%= item.name%>
+                        </td>
+                        <td>
+                            <%= item.date%>
+                        </td>
+                        <td>
+                            <%= item.address%>
+                        </td>
+                        <td>
+                            <%= item.pincode%>
+                        </td>
+                        <td>
+                            <%= item.city%>
+                        </td>
+                        <td>
+                            <%= item.state%>
+                        </td>
+                        <td>
+                            <%= item.country%>
+                        </td>
+                        <td><a href="/form/edituser/<%= item._id%>">Edit</a> <a href="/form/deleteuser/<%= item._id%>">Delete</a></td>
+                    </tr>
+                    <% }) %>
+                        <% } %>
+        </tbody>
+    </table>
+
+
+</body>
+
+</html>

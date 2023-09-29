@@ -1,41 +1,106 @@
-
-
 <%- include ('./partials/header')%>
-<%- include ('./partials/sidebar',{username:username})%>
-<%- include ('./partials/navbar',{username:username})%>
+    <%- include ('./partials/sidebar',{username:username})%>
+        <%- include ('./partials/navbar',{username:username})%>
 
             <!-- Form Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
                     <div class="col-sm-12 col-xl-6">
                         <div class="bg-secondary rounded h-100 p-4">
-                            <h6 class="mb-4">Basic Form</h6>
-                            <form action="" method="post" name='frm'>
+                            <h6 class="mb-4">Category</h6>
+                            <form action="<% if (data) { %>/edittcat/<%= data._id %><% } else { %>/savecat<% } %>"
+                                method="post" name='frm'>
                                 <div class="mb-3">
-                                    <label for="exampleInputEmail1" class="form-label">Username</label>
-                                    <input type="text" name="name" class="form-control" 
-                                        aria-describedby="emailHelp">
-                                    <label for="exampleInputEmail1"  class="form-label">Email address</label>
-                                    <input type="email" name="email" class="form-control" id="exampleInputEmail1"
-                                        aria-describedby="emailHelp">
-                                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.
-                                    </div>
+                                    <% if(message8){ %>
+                                        <p class="w-100 rounded p-2 mb-3 btn-primary text-white" role="alert">
+                                            <%= message8 %>
+                                        </p>
+                                        <% } %>
+                                            <label for="exampleInputEmail1" class="form-label mb-3">Category
+                                                Name:</label>
+                                            <input type="text" name="catname" class="form-control"
+                                                value="<%=(!data)?'':data.name%>" aria-describedby="emailHelp">
+
                                 </div>
-                                <div class="mb-3">
-                                    <label for="exampleInputPassword1" class="form-label">Password</label>
-                                    <input type="password" name="password" class="form-control" id="exampleInputPassword1">
-                                </div>
-                               
-                                <button type="submit" class="btn btn-primary">Sign in</button>
+
+                                <button type="submit" class="btn btn-primary">Add Category</button>
                             </form>
                         </div>
                     </div>
-       
+
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <h6 class="mb-4">Category Table</h6>
+                            <% if(getAll!=null) { %>
+                                <table class="table">
+                                    <thead>
+                                        <tr align="center">
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Category Name</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% getAll.forEach(function(item,index){ %>
+                                            <tr align="center">
+                                                <td>
+                                                    <%= index + 1 %>
+                                                </td>
+                                                <td>
+                                                    <%= item.name%>
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-success" href="/editcat/<%= item._id%>">Edit</a>
+
+                                                    <a class="btn btn-danger" href="/delcat/<%= item._id%>"
+                                                        data-toggle="modal" data-target="#exampleModal">Delete
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <% }) %>
+                                    </tbody>
+                                </table>
+                                <% } %>
+                        </div>
+
+                    </div>
+
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <h6 class="mb-4">Sub-Category</h6>
+                            <form action="/admin/addsubcategory" method="post" name='frm'>
+                                <div class="mb-3">
+                                    <% if(message8){ %>
+                                        <p class="w-100 rounded p-2 mb-3 btn-primary text-white" role="alert">
+                                            <%= message8 %>
+                                        </p>
+                                        <% } %>
+                                            <label for="exampleInputEmail1" class="form-label mb-3">Select Category
+                                                :</label>
+
+                                            <select name="category" class="form-control bg-dark"
+                                                aria-describedby="emailHelp">
+                                                <option class="bg-dark">--select--</option>
+
+                                            </select>
+
+                                            <select name="" id=""></select>
+
+                                            <label for="exampleInputEmail1" class="form-label mb-3 mt-3">Sub-Category
+                                                :</label>
+
+                                            <input type="text" name="name" class="form-control"
+                                                aria-describedby="emailHelp">
+
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">Add Category</button>
+                            </form>
+                        </div>
+                    </div>
+
                 </div>
-            </div>
-            <!-- Form End -->
+                <!-- Form End -->
 
 
-<%- include ('./partials/footer')%>
-
-         
+                <%- include ('./partials/footer')%>

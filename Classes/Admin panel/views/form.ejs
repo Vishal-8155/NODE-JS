@@ -1,0 +1,85 @@
+<%- include('./partials/header') %>
+<%- include('./partials/navbar') %>
+<%- include('./partials/sidebar',{usNm10:usNames}) %>
+
+  <body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+      <div class="content-wrapper">
+        <section class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h1>General Form</h1>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+          <div class="container-fluid">
+            <div class="row">
+              <!-- left column -->
+              <div class="col-md-6">
+                <!-- general form elements -->
+                <div class="card card-primary">
+                  <div class="card-header">
+                    <h3 class="card-title">Quick Example</h3>
+                  </div>
+                  <!-- /.card-header -->
+                  <!-- form start -->
+                  <form action="/saveData" method="post">
+                    <div class="card-body">
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">User name</label>
+                        <input type="text" name="uName" class="form-control" id="exampleInputName1"
+                          placeholder="Enter name">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" name="uEmail" class="form-control" id="exampleInputEmail1"
+                          placeholder="Enter email">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" name="uPass" class="form-control" id="exampleInputPassword1"
+                          placeholder="Password">
+                      </div>
+                    </div>
+                    <!-- /.card-body -->
+
+                    <div class="card-footer">
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <aside class="control-sidebar control-sidebar-dark">
+      </aside>
+    </div>
+    <!-- jQuery -->
+    <script src="../../plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- bs-custom-file-input -->
+    <script src="../../plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="../../dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="../../dist/js/demo.js"></script>
+    <!-- Page specific script -->
+    <script>
+      $(function () {
+        bsCustomFileInput.init();
+      });
+    </script>
+  </body>
+
+  </html>
+
+  <%- include('./partials/footer') %>

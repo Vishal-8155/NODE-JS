@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User</title>
+</head>
+<body>
+    <form action="/savedata" method="post">
+        <input type="hidden" name="id" value="<%= edituser.id%>">
+        Name:
+        <input type="text" name="name" value="<%= edituser.name%>"><br><br>
+        Email:
+        <input type="email" name="email" value="<%= edituser.email%>"><br><br>
+        Age:
+        <input type="number" name="age" value="<%= edituser.age%>"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <br><br>
+    <table border="2">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Age</th>
+            <th>Action</th>
+        </tr>
+        <% data.forEach((item) => { %>
+            <tr>
+                <td><%= item.id %></td>
+                <td><%= item.name %></td>
+                <td><%= item.email %></td>
+                <td><%= item.age %></td>
+                <td><a href="/edit/<%= item.id %>">Edit</a> <a href="/del/<%= item.id %>">Delete</a></td>
+            </tr>
+        <% });%>
+    </table>
+</body>
+</html>

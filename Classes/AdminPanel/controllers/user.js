@@ -1,8 +1,10 @@
 const model = require('../models/mongoosedb');
+// const categorymodel = require('../models/category');
 const sendinBlue = require('sib-api-v3-sdk');
 const express = require('express');
 const nodemailer = require('nodemailer')
 const bcrypt = require('bcrypt');
+const catModel = require('../models/catModel');
 const saltRounds = 10;
 // const accountSid = 'SKaa1cfe2abf0641dfb98da54700c38eae';
 // const authToken = 'Gvxu9K5YdAQVWqJcju8ihi06TyD8cci0';
@@ -61,11 +63,15 @@ const main = (req, res) => {
 
 }
 
-const formdata = (req, res) => {
+const formdata = async (req, res) => {
 
     rs(req, res);
+    const getAll = await catModel.find({});
     res.render('form', {
-        username: req.cookies.UserName
+        username: req.cookies.UserName,
+        message8: '',
+        getAll:getAll,
+        data:''
     });
 
 }
@@ -114,7 +120,8 @@ const savepass = async (req, res) => {
 
                         $set:
                         {
-                            password: req.body.newpass
+                            otp:"",
+                            password: await bcrypt.hash(req.body.newpass, saltRounds)
                         }
 
                     }
@@ -153,7 +160,6 @@ const savepass = async (req, res) => {
 
             req.flash('success', 'Please Enter Same Password!');
             res.render('resetpass', {
-                message4: req.body.hiddenotp,
                 message6: req.body.hiddenContact,
                 message7: req.flash('success')
             });
@@ -164,7 +170,6 @@ const savepass = async (req, res) => {
 
         req.flash('success', 'Please Enter New Password!');
         res.render('resetpass', {
-            message4: req.body.hiddenotp,
             message6: req.body.hiddenContact,
             message7: req.flash('success')
         });
@@ -173,17 +178,18 @@ const savepass = async (req, res) => {
 
 }
 
-const resetpass = (req, res) => {
+const resetpass = async (req, res) => {
+
+    const user = await model.findOne({email: req.body.hiddenContact})
+
+    console.log(user);
 
     if (req.body.otp) {
 
-        console.log(req.body.hiddenotp)
 
-        if (req.body.otp === req.body.hiddenotp) {
+        if (req.body.otp == user.otp) {
 
             res.render('resetpass', {
-
-                message4: req.body.hiddenotp,
                 message6: req.body.hiddenContact,
                 message7: ''
 
@@ -193,7 +199,6 @@ const resetpass = (req, res) => {
 
             req.flash('secondary', 'OTP was Wrong!');
             res.render('otp', {
-                otp: req.body.hiddenotp,
                 Contact: req.body.hiddenContact,
                 message5: req.flash('secondary')
             });
@@ -204,7 +209,6 @@ const resetpass = (req, res) => {
 
         req.flash('secondary', 'Please Enter OTP!');
         res.render('otp', {
-            otp: req.body.hiddenotp,
             Contact: req.body.hiddenContact,
             message5: req.flash('secondary')
         });
@@ -218,35 +222,64 @@ const otp = async (req, res) => {
     if (req.body.Contact) {
 
         let phone = await model.findOne({ number: req.body.Contact });
-        let email = await model.findOne({ email: req.body.Contact });
+        let result = await model.findOne({ email: req.body.Contact });
 
-        if (email) {
+        if (result) {
 
             const email = req.body.Contact; // Assuming the email is sent in the request body
 
             let OTP = generateOTP();
 
-            // Define your email parameters
-            const sendSmtpEmail = new sendinBlue.SendSmtpEmail();
-            sendSmtpEmail.subject = 'Your OTP Code';
-            sendSmtpEmail.htmlContent = `ADMINPANEL, Author(VISHAL) Your OTP code is: ${OTP}`;
-            sendSmtpEmail.sender = { name: 'Vishal chavda', email: 'sender@domain.com' };
-            sendSmtpEmail.to = [{ email: email }];
+            // first method
 
-            // Send the email
-            apiInstance.sendTransacEmail(sendSmtpEmail)
-                .then(response => {
-                    console.log('Email sent successfully:', response);
-                    res.render('otp', {
-                        otp: OTP,
-                        Contact: email,
-                        message5: ''
-                    })
-                })
-                .catch(error => {
-                    console.error('Error sending email:', error);
-                    res.status(500).json({ error: 'Error sending email' });
-                });
+            const mailInfo = {
+
+                from: "vishalchavda7781@gmail.com",
+                to: email,
+                subject: "Vishal Chavda Admin Panel",
+                text: "For, Reset Password",
+                html: `<p>Your OTP is : ${OTP}</p>`
+
+            }
+
+            await transporter.sendMail(mailInfo);
+
+            console.log('Email Sent Successfully');
+
+            result.otp = OTP;
+
+            result.save();
+
+            console.log(result.otp);
+
+            res.render('otp', {
+                Contact: email,
+                message5: ''
+            })
+
+            // second method
+
+            // Define your email parameters
+            // const sendSmtpEmail = new sendinBlue.SendSmtpEmail();
+            // sendSmtpEmail.subject = 'Your OTP Code';
+            // sendSmtpEmail.htmlContent = `ADMINPANEL, Author(VISHAL) Your OTP code is: ${OTP}`;
+            // sendSmtpEmail.sender = { name: 'Vishal chavda', email: 'sender@domain.com' };
+            // sendSmtpEmail.to = [{ email: email }];
+
+            // // Send the email
+            // apiInstance.sendTransacEmail(sendSmtpEmail)
+            //     .then(response => {
+            //         console.log('Email sent successfully:', response);
+            //         res.render('otp', {
+            //             otp: OTP,
+            //             Contact: email,
+            //             message5: ''
+            //         })
+            //     })
+            //     .catch(error => {
+            //         console.error('Error sending email:', error);
+            //         res.status(500).json({ error: 'Error sending email' });
+            //     });
 
         } else if (phone) {
 
@@ -263,7 +296,6 @@ const otp = async (req, res) => {
                 .then(message => {
                     console.log(message.sid);
                     res.render('otp', {
-                        otp: phoneotp,
                         Contact: mnum,
                         message5: ''
                     })
@@ -280,11 +312,11 @@ const otp = async (req, res) => {
 
         req.flash('warning', 'Please Enter Contact!');
         res.render('forgetpass', { message3: req.flash('warning') });
-
+     
     }
 
 }
-
+    
 const checklogin = async (req, res) => {
 
     let data = await model.findOne({ email: req.body.email });
@@ -299,7 +331,6 @@ const checklogin = async (req, res) => {
                 req.flash('danger', 'Email and Password is Incorrect!');
                 res.render('login', { message: req.flash('danger') });
             } else {
-                console.log(data.name)
                 res.cookie("UserName", data.name);
                 res.render('index', { message: '', username: data.name });
             }
@@ -334,11 +365,11 @@ const form = async (req, res) => {
             const crypted = await bcrypt.hash(password, saltRounds);
             let data = new model({
 
-                id: 1,
                 name: name,
                 number: number,
                 email: email,
-                password: crypted
+                password: crypted,
+                otp:''
 
             })
 
@@ -351,6 +382,7 @@ const form = async (req, res) => {
                 html: "<p>You are successfully registered </p>"
 
             }
+
             await transporter.sendMail(mailInfo)
 
             await data.save();
@@ -359,13 +391,13 @@ const form = async (req, res) => {
         }
 
     } else {
+
         req.flash('info', 'Please Enter All the Fields!');
         res.render('signup', { message2: req.flash('info') });
+
     }
 
 }
-
-
 
 module.exports = {
 

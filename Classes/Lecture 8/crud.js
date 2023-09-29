@@ -67,7 +67,7 @@ async function main() {
     });
 
     app.get("/del/:id", async (req, res) => {
-
+      
       let result = await client.connect();
       let db = result.db(database);
       let collection = db.collection('users');
@@ -93,8 +93,6 @@ async function main() {
     app.post("/save", upload.single('image'), async (req, res) => {
 
       id = req.body.id;
-
-
 
       if (id != '') {
 
@@ -136,7 +134,8 @@ async function main() {
         }
 
       } else {
-           if(req.body.name != ''){
+
+        if (req.body.name != '') {
           let udata = {
 
             name: req.body.name,
@@ -152,6 +151,7 @@ async function main() {
 
           await collection.insertOne(udata);
         }
+
       }
 
       edtData = "";
@@ -175,7 +175,7 @@ async function main() {
       })
 
       res.render("crud", {
-
+        
         data: response,
         userEdit: edtData
 

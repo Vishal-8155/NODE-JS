@@ -29,6 +29,8 @@ routes.post('/savedata', upload.single('image'), async (req, res) => {
 
     if (id != '') {
 
+        
+
         user = await model.find();
 
         old = (user.image != '') ? user.image : '';
@@ -54,22 +56,27 @@ routes.post('/savedata', upload.single('image'), async (req, res) => {
             });
 
     } else {
+
         if (name != '') {
+
             let data = new model({
+
                 id: 1,
                 moviename: req.body.name,
                 date: req.body.date,
                 charactor: req.body.charactor,
                 pimage: imgname
+
             })
 
             let b = await data.save();
+
         }
 
     }
 
     userdata2 = '';
-    res.redirect('/crud')
+    res.redirect('/crud');
 
 });
 

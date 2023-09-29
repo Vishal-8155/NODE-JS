@@ -1,0 +1,12 @@
+.adress {
+
+    width: 400px;
+    height: 50px;
+    font-size: 11px;
+
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
