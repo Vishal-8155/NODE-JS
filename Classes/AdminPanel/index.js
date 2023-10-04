@@ -4,8 +4,6 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const cookie = require('cookie-parser');
 app.use(cookie());
-const passport = require('passport')
-const localization = require("./middleware/localauth");
 
 app.use(session({
 
@@ -15,9 +13,6 @@ app.use(session({
 
 }))
 
-localization(passport)
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(flash());
 
 app.set('view engine', 'ejs');

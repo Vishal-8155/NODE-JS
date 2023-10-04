@@ -1,0 +1,88 @@
+<%- include ('./partials/header')%>
+<%- include ('./partials/sidebar',{username:username})%>
+<%- include ('./partials/navbar',{username:username})%>
+
+            <!-- Form Start -->
+            <div class="container-fluid pt-4 px-4">
+                <% if(message2){ %>
+                    <p class="w-100 rounded p-2 mb-3 btn-primary text-white" role="alert">
+                        <%= message2 %>
+                    </p>
+                <% } %>
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <h6 class="mb-4">Category</h6>
+                            <form action="<%= (editSubCat)?'/admin/updatesubcategory/'+editSubCat._id:'/admin/savesubcategory'%>" method="post" name='frm'>
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Category</label>
+                                    <select name="cat_id" class="form-control" >
+                                        <option value="">Select Category</option>
+                                        <% catData.forEach((i) => { 
+                                            var selected = ( editSubCat && i._id.toString() == editSubCat.cat_id.toString()) ? 'selected' : '';
+                                        %>
+                                            <option value="<%= i._id %>" <%= selected %>><%= i.catname %></option>
+                                        <% }) %>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Subcategory Name</label>
+                                    <input type="text" name="name" class="form-control" value="<%= (editSubCat)? editSubCat.name: '' %>">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </form>
+                        </div>
+                    </div>
+                   
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <h6 class="mb-4">All Categories</h6>
+                            <div class="row">
+                            <div class="col-6">
+                                <select id="dispcat_id" name="dispcat_id" class="form-control">
+                                <option value="">Select Category</option>
+                                <% catData.forEach((i) => { %>
+                                    <option value="<%= i._id %>"><%= i.catname %></option>
+                                <% }) %>
+                            </select>
+                            </div>
+                            <div class="col-6">
+                                <form class="d-none d-md-flex ms-4">
+                                    <input class="form-control bg-dark border-0" id="search" name="search" type="search" placeholder="Search">
+                                </form>    
+                            </div>
+                        </div>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Category</th>
+                                        <th scope="col">Subcategory Name</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                 
+                                <tbody id="result">
+                                    <% if(allSubCat) { %>
+                                        <% allSubCat.forEach((item)=>{ %>
+                                            <tr>
+                                                <td><%= item._id %></td>
+                                                <td><%= item.cat_id.catname %></td>
+                                                <td><%= item.name %></td>
+                                                <td><a href="/admin/editSubCat/<%= item._id%>">Edit</a> <a href="/admin/deleteSubCat/<%= item._id%>">Delete</a></td>
+                                            </tr>
+                                        <% }) %>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Form End -->
+
+
+<%- include ('./partials/footer')%>
+<script src="../views/script.js"></script>
+
+         

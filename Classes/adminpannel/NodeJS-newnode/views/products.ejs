@@ -1,0 +1,80 @@
+<%- include ('./partials/header')%>
+<%- include ('./partials/sidebar',{username:username})%>
+<%- include ('./partials/navbar',{username:username})%>
+
+            <!-- Form Start -->
+            <div class="container-fluid pt-4 px-4">
+                <% if(message2){ %>
+                    <p class="w-100 rounded p-2 mb-3 btn-primary text-white" role="alert">
+                        <%= message2 %>
+                    </p>
+                <% } %>
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <h6 class="mb-4">Products</h6>
+                            <form action="/admin/saveproduct" method="post" name='frm'>
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Category</label>
+                                    <select id="cat_id" name="cat_id" class="form-control" >
+                                        <option value="">Select Category</option>
+                                        <% catData.forEach((i) => { 
+                                           
+                                        %>
+                                            <option value="<%= i._id %>" ><%= i.catname %></option>
+                                        <% }) %>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Subcategory</label>
+                                    <select id="sub_id" name="sub_id" class="form-control" >
+                                        <option value="">Select Subcategory</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Product Name</label>
+                                    <input type="text" name="name" class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Product Price</label>
+                                    <input type="text" name="price" class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Image</label>
+                                    <input type="file" name="image" class="form-control" multiple>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </form>
+                        </div>
+                    </div>
+                   
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <h6 class="mb-4">All Products</h6>
+                            
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Category</th>
+                                        <th scope="col">Subcategory</th>
+                                        <th scope="col">Product</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                 
+                                <tbody id="result">
+                                   
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Form End -->
+
+
+<%- include ('./partials/footer')%>
+<script src="../views/script.js"></script>
+
+         

@@ -1,38 +1,40 @@
-const model = require('../models/mongoosedb');
-// const categorymodel = require('../models/category');
-const sendinBlue = require('sib-api-v3-sdk');
+const {model,user} = require('../models/mongoosedb');
+// const sendinBlue = require('sib-api-v3-sdk');
 const express = require('express');
 const nodemailer = require('nodemailer')
 const bcrypt = require('bcrypt');
-const catModel = require('../models/catModel');
+const mongoose = require('mongoose')
 const saltRounds = 10;
+
+var jwt = require('jsonwebtoken');
+const localStorage = require('localStorage');
+const secretKey = 'zoy123';
+
 // const accountSid = 'SKaa1cfe2abf0641dfb98da54700c38eae';
 // const authToken = 'Gvxu9K5YdAQVWqJcju8ihi06TyD8cci0';
 // const client = require('twilio')(accountSid, authToken);
 
-const accountSid = 'AC3ad31efc36b3f7af716c91364a43b65a'; // Replace with your Twilio Account SID
-const apiKeySid = 'SKaa1cfe2abf0641dfb98da54700c38eae';   // Replace with your Twilio API Key SID
-const apiKeySecret = 'Gvxu9K5YdAQVWqJcju8ihi06TyD8cci0'; // Replace with your Twilio API Key Secret
+// const accountSid = 'AC3ad31efc36b3f7af716c91364a43b65a'; // Replace with your Twilio Account SID
+// const apiKeySid = 'SKaa1cfe2abf0641dfb98da54700c38eae';   // Replace with your Twilio API Key SID
+// const apiKeySecret = 'Gvxu9K5YdAQVWqJcju8ihi06TyD8cci0'; // Replace with your Twilio API Key Secret
 
-const client = require('twilio')(apiKeySid, apiKeySecret, { accountSid: accountSid });
+// const client = require('twilio')(apiKeySid, apiKeySecret, { accountSid: accountSid });
 
 // Rest of your code
 
 const app = express();
-
 // const bodyParser = require('body-parser');
-
 app.use(express.json());
 
 // Instantiate the API client
-const defaultClient = sendinBlue.ApiClient.instance;
+// const defaultClient = sendinBlue.ApiClient.instance;
 
 // Configure API key authorization
-const apiKey = defaultClient.authentications['api-key'];
-apiKey.apiKey = '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';
+// const apiKey = defaultClient.authentications['api-key'];
+// apiKey.apiKey = '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';
 
 // Create an instance of the TransactionalEmailsApi class
-const apiInstance = new sendinBlue.TransactionalEmailsApi();
+// const apiInstance = new sendinBlue.TransactionalEmailsApi();
 
 
 // Generate a random OTP
@@ -65,15 +67,11 @@ const main = (req, res) => {
 
 }
 
-const formdata = async (req, res) => {
+const formdata = (req, res) => {
 
     rs(req, res);
-    const getAll = await catModel.find({});
     res.render('form', {
-        username: req.cookies.UserName,
-        message8: '',
-        getAll:getAll,
-        data:''
+        username: req.cookies.UserName
     });
 
 }
@@ -122,6 +120,7 @@ const savepass = async (req, res) => {
 
                         $set:
                         {
+                            // password: req.body.newpass
                             otp:"",
                             password: await bcrypt.hash(req.body.newpass, saltRounds)
                         }
@@ -145,6 +144,7 @@ const savepass = async (req, res) => {
 
                         $set:
                         {
+                            otp:"",
                             password: req.body.newpass
                         }
 
@@ -162,6 +162,7 @@ const savepass = async (req, res) => {
 
             req.flash('success', 'Please Enter Same Password!');
             res.render('resetpass', {
+                message4: req.body.hiddenotp,
                 message6: req.body.hiddenContact,
                 message7: req.flash('success')
             });
@@ -172,6 +173,7 @@ const savepass = async (req, res) => {
 
         req.flash('success', 'Please Enter New Password!');
         res.render('resetpass', {
+            message4: req.body.hiddenotp,
             message6: req.body.hiddenContact,
             message7: req.flash('success')
         });
@@ -182,16 +184,20 @@ const savepass = async (req, res) => {
 
 const resetpass = async (req, res) => {
 
-    const user = await model.findOne({email: req.body.hiddenContact})
+    
+    const {hiddenContact,otp} = req.body;
+    if (otp) {
 
-    console.log(user);
+        let result = await model.findOne({email:hiddenContact})
+        console.log(result.otp)
+        console.log(otp)
+        // console.log(req.body.hiddenotp)
 
-    if (req.body.otp) {
-
-
-        if (req.body.otp == user.otp) {
+        if (result.otp == otp) {
 
             res.render('resetpass', {
+
+                // message4: req.body.hiddenotp,
                 message6: req.body.hiddenContact,
                 message7: ''
 
@@ -201,6 +207,7 @@ const resetpass = async (req, res) => {
 
             req.flash('secondary', 'OTP was Wrong!');
             res.render('otp', {
+                // otp: req.body.hiddenotp,
                 Contact: req.body.hiddenContact,
                 message5: req.flash('secondary')
             });
@@ -211,6 +218,7 @@ const resetpass = async (req, res) => {
 
         req.flash('secondary', 'Please Enter OTP!');
         res.render('otp', {
+            // otp: req.body.hiddenotp,
             Contact: req.body.hiddenContact,
             message5: req.flash('secondary')
         });
@@ -247,14 +255,14 @@ const otp = async (req, res) => {
             await transporter.sendMail(mailInfo);
 
             console.log('Email Sent Successfully');
-
             result.otp = OTP;
-
             result.save();
-
-            console.log(result.otp);
+            // user.add({otp:Number});
+            // await model.updateOne( {email: email},{ $set: { otp :OTP} });
+            console.log('otp saved successfully');
 
             res.render('otp', {
+                // otp: OTP,
                 Contact: email,
                 message5: ''
             })
@@ -298,6 +306,7 @@ const otp = async (req, res) => {
                 .then(message => {
                     console.log(message.sid);
                     res.render('otp', {
+                        otp: phoneotp,
                         Contact: mnum,
                         message5: ''
                     })
@@ -318,7 +327,7 @@ const otp = async (req, res) => {
     }
 
 }
-    
+
 const checklogin = async (req, res) => {
 
     let data = await model.findOne({ email: req.body.email });
@@ -334,6 +343,8 @@ const checklogin = async (req, res) => {
                 res.render('login', { message: req.flash('danger') });
             } else {
                 res.cookie("UserName", data.name);
+                localStorage.setItem('userToken', JSON.stringify(data.token));
+
                 res.render('index', { message: '', username: data.name });
             }
 
@@ -357,21 +368,19 @@ const form = async (req, res) => {
     if (email && password && name && number) {
 
         if (checkuser) {
-
             req.flash('info', 'Email is already registered!');
             res.render('signup', { message2: req.flash('info') });
-
-
         } else {
 
             const crypted = await bcrypt.hash(password, saltRounds);
             let data = new model({
 
+                id: 1,
                 name: name,
                 number: number,
                 email: email,
                 password: crypted,
-                otp:''
+                token:''
 
             })
 
@@ -388,6 +397,10 @@ const form = async (req, res) => {
             await transporter.sendMail(mailInfo)
 
             await data.save();
+            //JWT token generate
+            var token = jwt.sign({data:data},secretKey);
+            let _id = data._id;
+            const result = await model.findByIdAndUpdate({_id},{$set:{token:token}})
             res.redirect('/admin');
 
         }
@@ -402,7 +415,5 @@ const form = async (req, res) => {
 }
 
 module.exports = {
-
     main, form, formdata, login, signup, checklogin, logout, forgetpass, otp, resetpass, savepass
-
 }
