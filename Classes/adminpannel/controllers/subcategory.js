@@ -18,7 +18,6 @@ const categoryData =async (req,res)=>{
 } 
 const savesubcat = async (req,res)=>{
     let getAllCat = await submodel.find();
-    // let len = getAllCat.length+1;
     const name = req.body.name;
     const id = req.body.cat_id;
     const checkName = await submodel.findOne({name:name})
@@ -45,7 +44,6 @@ const savesubcat = async (req,res)=>{
         
         getAllCat = await submodel.find();
         res.redirect("/admin/allSubCategory")
-        // res.status(200).send("Subcategory saved successfully")
         // req.flash('success', 'Category added successfully');
         // res.render('category',{
         //     username: req.cookies.UserName,
@@ -59,7 +57,6 @@ const savesubcat = async (req,res)=>{
 }
 const updatesubcat = async (req,res)=>{
     let getAllCat = await submodel.find();
-    // let len = getAllCat.length+1;
     const name = req.body.name;
     const id = req.body.cat_id;
     const subid = req.params.id;
@@ -71,10 +68,7 @@ const updatesubcat = async (req,res)=>{
     })
     console.log("Subcat updated");
     res.redirect('/admin/allSubCategory');
-        
-       
     
-
 }
 const allSubCat = async(req,res) => {
     let catData = await model.find();
@@ -97,10 +91,8 @@ const getCatData = async(req,res) => {
     else {
         subData =  await submodel.find().populate("cat_id");
     }
-
         res.json(subData);
-    
-//    console.log(subData);
+
 //    res.render('subcategory',{
 //                     username: req.cookies.UserName,
 //                     allSubCat: subData,
@@ -114,16 +106,16 @@ const getFilterData = async(req,res) => {
     console.log(searchtext);
     let subData;
     const categories = await model.find({
-        catname: { $regex: new RegExp(searchtext, "i") } // Case-insensitive search
+        catname: { $regex: new RegExp(searchtext, "i") } 
     });
     
-      // Search for subcategories where cat_id points to a matching category
+      
       let subcategories = await submodel.find({
-        // Here Category Id is found in submodel 
+        
         cat_id: { $in: categories.map(category => category._id) }
       }).populate("cat_id");
       console.log(subcategories);
-    //   If we want to find subcategory than this condition works:
+    
     if(subcategories == ''){
         subcategories = await submodel.find({ name:{ $regex: new RegExp(searchtext, "i")}}).populate("cat_id")
     }
@@ -149,8 +141,6 @@ const deleteSubCat = async(req,res)=>{
     const id = req.params.id;
     const result = await submodel.findByIdAndRemove({_id:id});
     res.redirect('/admin/allSubCategory');
-    //delete from tbl_name where id=10
-    //select firstname,lastname from tbl;    
 }
 
 module.exports = {savesubcat,allSubCat,deleteSubCat,editSubCat,updatesubcat,getCatData,getFilterData};

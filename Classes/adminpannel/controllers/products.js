@@ -9,6 +9,8 @@ const bodyParser = require('body-parser');
 // app.use(express.json());
 app.use(bodyParser.json());
 
+
+
 const products = async (req,res)=>{
     categoryData = await model.find();
     res.render('products',{
@@ -19,6 +21,7 @@ const products = async (req,res)=>{
 
     });
 }
+
 const getSubData = async (req, res)=>{
     let catid = req.query.selectedValue
     let data = await submodel.find({cat_id: catid})
@@ -31,15 +34,14 @@ const saveproduct = async (req, res,next)=>{
     console.log(req.body)
     try {
         
-        // to declare some path to store your converted image
+        
         const path = '././images/'+Date.now()+'.png'
 
-        console.log(req.body)
         const imgdata = req.body.image;
         if (!imgdata) {
             throw new Error('Invalid image data');
         }
-        // to convert base64 format into random filename
+        
         const base64Data = imgdata.replace(/^data:([A-Za-z-+/]+);base64,/, '');        
         fs.writeFileSync(path, base64Data,  {encoding: 'base64'});
         const result = {

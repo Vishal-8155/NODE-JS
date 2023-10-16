@@ -49,11 +49,11 @@ const rs = (req, res) => {
 }
 
 const transporter = nodemailer.createTransport({
-    port: 465,               // true for 465, false for other ports
+    port: 465,            
     host: "smtp.gmail.com",
     auth: {
         user: 'vishalchavda7781@gmail.com',
-        pass: 'vxfxffkwweharzpo',
+        pass: 'tblatzxzeggquxhn',
     },
     secure: true,
 });
@@ -236,7 +236,7 @@ const otp = async (req, res) => {
 
         if (result) {
 
-            const email = req.body.Contact; // Assuming the email is sent in the request body
+            const email = req.body.Contact;
 
             let OTP = generateOTP();
 
@@ -397,7 +397,7 @@ const form = async (req, res) => {
             await transporter.sendMail(mailInfo)
 
             await data.save();
-            //JWT token generate
+            //J W 
             var token = jwt.sign({data:data},secretKey);
             let _id = data._id;
             const result = await model.findByIdAndUpdate({_id},{$set:{token:token}})
@@ -415,5 +415,7 @@ const form = async (req, res) => {
 }
 
 module.exports = {
+
     main, form, formdata, login, signup, checklogin, logout, forgetpass, otp, resetpass, savepass
+
 }
