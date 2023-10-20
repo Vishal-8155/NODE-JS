@@ -1,5 +1,6 @@
 const express = require('express');
 const body = require('body-parser');
+const rolemodel = require('../models/rolemodel');
 const bodyParser = body.urlencoded({ extended: false });
 const mongoose = require('mongoose');
 var LocalStorage = require('node-localstorage').LocalStorage,
@@ -97,6 +98,27 @@ router.get('/allroledata',checkRole,allroledata);
 router.get('/roledatadelete/:id',checkRole,roledatadelete);
 router.get('/roledataedit/:id',checkRole,roledataedit);
 router.post('/roleupdate/:id',checkRole,bodyParser,roleupdate);
+
+//Google routes
+router.get('/auth/google',passport.authenticate('google', { scope: ['profile','email'] }));
+ 
+router.get('/auth/google/callback', 
+  passport.authenticate('google', { 
+        // successRedirect:'/admin/home',
+        failureRedirect: '/'
+   }),async (req,res)=>{
+    let roleData1 = await rolemodel.find({isActive:1})
+      console.log(req.user.profile)
+      if(req.user.created){
+          res.render('logindetails',{
+            user:req.user.profile,
+            roleData:roleData1,
+            message2:"You have been registered successfully."
+          });
+      } else {
+          res.redirect('/admin');
+      }
+   });
 
 module.exports = router;
 
